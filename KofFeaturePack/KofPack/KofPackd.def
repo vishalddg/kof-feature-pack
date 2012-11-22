@@ -1,0 +1,6 @@
+; KofPack.def : Declares the module parameters for the DLL.
+
+LIBRARY      "KofPackd"
+
+EXPORTS
+    ; Explicit exports can go here
