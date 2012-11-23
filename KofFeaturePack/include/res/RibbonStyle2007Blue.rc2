@@ -1,0 +1,15 @@
+//
+// STYLE.RC2 - resources Microsoft Visual C++ does not edit directly
+//
+
+#ifdef APSTUDIO_INVOKED
+	#error this file is not editable by Microsoft Visual C++
+#endif //APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
+BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH PNG  DISCARDABLE "Blue\\Ribbon\\Buttons\\Push.png"
