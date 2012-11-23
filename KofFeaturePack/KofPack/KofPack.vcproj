@@ -93,7 +93,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="echo D | xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Bin\$(ConfigurationName)&quot; /y&#x0D;&#x0A;echo D | xcopy &quot;$(TargetDir)$(TargetName).lib&quot; &quot;$(SolutionDir)Lib&quot; /y"
+				CommandLine="echo D | xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Bin\$(ConfigurationName)&quot; /y&#x0D;&#x0A;echo D | xcopy &quot;$(TargetDir)$(TargetName).lib&quot; &quot;$(SolutionDir)Lib&quot; /y&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -175,7 +175,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="echo D | xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Bin\$(ConfigurationName)&quot; /y&#x0D;&#x0A;echo D | xcopy &quot;$(TargetDir)$(TargetName).lib&quot; &quot;$(SolutionDir)Lib&quot; /y"
+				CommandLine="echo D | xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Bin\$(ConfigurationName)&quot; /y&#x0D;&#x0A;echo D | xcopy &quot;$(TargetDir)$(TargetName).lib&quot; &quot;$(SolutionDir)Lib&quot; /y&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -255,7 +255,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="echo D | xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Bin\$(ConfigurationName)&quot; /y&#x0D;&#x0A;echo D | xcopy &quot;$(TargetDir)$(TargetName).lib&quot; &quot;$(SolutionDir)Lib&quot; /y"
+				CommandLine="echo D | xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Bin\$(ConfigurationName)&quot; /y&#x0D;&#x0A;echo D | xcopy &quot;$(TargetDir)$(TargetName).lib&quot; &quot;$(SolutionDir)Lib&quot; /y&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -304,6 +304,10 @@
 			</File>
 			<File
 				RelativePath="..\src\KofDlgImpl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCButton.cpp"
 				>
 			</File>
 			<File
@@ -365,11 +369,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\KofMFCButton.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\KofPack.h"
 				>
 			</File>
 			<File
 				RelativePath="..\include\KofPackInc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofResource.h"
 				>
 			</File>
 			<File
@@ -400,6 +412,26 @@
 			</File>
 			<File
 				RelativePath=".\res\KofPack.rc2"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofPackRes.rc"
+				>
+			</File>
+			<File
+				RelativePath="..\include\res\RibbonStyle2007Aqua.rc2"
+				>
+			</File>
+			<File
+				RelativePath="..\include\res\RibbonStyle2007Black.rc2"
+				>
+			</File>
+			<File
+				RelativePath="..\include\res\RibbonStyle2007Blue.rc2"
+				>
+			</File>
+			<File
+				RelativePath="..\include\res\RibbonStyle2007Silver.rc2"
 				>
 			</File>
 		</Filter>
