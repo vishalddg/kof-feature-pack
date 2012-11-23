@@ -34,4 +34,6 @@ private:
 	UINT m_Style;
 	COLORREF m_clrDlgBackground;
 	CBrush m_brDlgBackground;
+	CMFCControlRenderer m_ctrlRibbonBtnPush;
+
 };

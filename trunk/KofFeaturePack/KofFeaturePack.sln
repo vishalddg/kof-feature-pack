@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testSDI", "testSDI\testSDI.vcproj", "{309C0F0E-DB53-4613-B15D-D4D19ECA0BBA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AE4C62FA-2E72-4F43-AA33-5F4BB085B31B} = {AE4C62FA-2E72-4F43-AA33-5F4BB085B31B}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KofPack", "KofPack\KofPack.vcproj", "{AE4C62FA-2E72-4F43-AA33-5F4BB085B31B}"
 EndProject

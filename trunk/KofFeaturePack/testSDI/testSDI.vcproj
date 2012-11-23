@@ -413,5 +413,9 @@
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="testSDI.rc"
+		/>
 	</Globals>
 </VisualStudioProject>

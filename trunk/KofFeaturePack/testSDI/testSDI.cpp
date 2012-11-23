@@ -19,6 +19,7 @@
 
 #include "testSDIDoc.h"
 #include "testSDIView.h"
+#include "afxwin.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -143,6 +144,8 @@ protected:
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	CKofMFCButton m_BtnOne;
 };
 
 CAboutDlg::CAboutDlg() : CKofDialogEx(CAboutDlg::IDD)
@@ -152,6 +155,7 @@ CAboutDlg::CAboutDlg() : CKofDialogEx(CAboutDlg::IDD)
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CKofDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_BUTTON1, m_BtnOne);
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CKofDialogEx)

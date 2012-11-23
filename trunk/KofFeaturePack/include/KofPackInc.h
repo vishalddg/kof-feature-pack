@@ -5,3 +5,4 @@
 #include "KofDialogEx.h"
 #include "KofDlgImpl.h"
 #include "KofStyleHelper.h"
+#include "KofMFCButton.h"
