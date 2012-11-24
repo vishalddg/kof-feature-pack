@@ -16,7 +16,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Chinese (P.R.C.) resources
+// 中文(中华人民共和国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 #ifdef _WIN32
@@ -65,12 +65,12 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
-#endif    // Chinese (P.R.C.) resources
+#endif    // 中文(中华人民共和国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// 英语(美国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -244,16 +244,27 @@ END
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOGEX 0, 0, 218, 182
+IDD_ABOUTBOX DIALOGEX 0, 0, 328, 256
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About testSDI"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
     LTEXT           "testSDI, Version 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     LTEXT           "Copyright (C) 2012",IDC_STATIC,42,26,114,8
-    DEFPUSHBUTTON   "OK",IDOK,161,161,50,14,WS_GROUP
+    DEFPUSHBUTTON   "OK",IDOK,271,235,50,14,WS_GROUP
     PUSHBUTTON      "Button1",IDC_BUTTON1,41,105,50,14
+    CONTROL         "Check1",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,47,39,10
+    CONTROL         "Check2",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,95,62,39,10
+    CONTROL         "Radio1",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON | WS_GROUP,129,86,38,10
+    CONTROL         "Radio2",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,131,101,38,10
+    EDITTEXT        IDC_EDIT1,21,76,62,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO1,23,154,64,83,CBS_SIMPLE | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO2,107,153,73,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO3,201,154,91,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "text text",IDC_STATIC_TEXT,135,17,46,8
+    LTEXT           "color text",IDC_STATIC_CORTEXT,197,18,64,8
+    CONTROL         "",IDC_PROGRESS1,"msctls_progress32",WS_BORDER,150,42,143,8
 END
 
 
@@ -307,12 +318,65 @@ BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 211
+        RIGHTMARGIN, 321
         TOPMARGIN, 7
-        BOTTOMMARGIN, 175
+        BOTTOMMARGIN, 249
     END
 END
 #endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_ABOUTBOX DLGINIT
+BEGIN
+    IDC_COMBO1, 0x403, 3, 0
+0x6161, "\000" 
+    IDC_COMBO1, 0x403, 3, 0
+0x6262, "\000" 
+    IDC_COMBO1, 0x403, 3, 0
+0x6363, "\000" 
+    IDC_COMBO1, 0x403, 3, 0
+0x6464, "\000" 
+    IDC_COMBO1, 0x403, 3, 0
+0x6565, "\000" 
+    IDC_COMBO1, 0x403, 3, 0
+0x6666, "\000" 
+    IDC_COMBO1, 0x403, 3, 0
+0x6767, "\000" 
+    IDC_COMBO2, 0x403, 3, 0
+0x6161, "\000" 
+    IDC_COMBO2, 0x403, 3, 0
+0x6262, "\000" 
+    IDC_COMBO2, 0x403, 3, 0
+0x6363, "\000" 
+    IDC_COMBO2, 0x403, 3, 0
+0x6464, "\000" 
+    IDC_COMBO2, 0x403, 3, 0
+0x6565, "\000" 
+    IDC_COMBO2, 0x403, 3, 0
+0x6666, "\000" 
+    IDC_COMBO2, 0x403, 3, 0
+0x6767, "\000" 
+    IDC_COMBO3, 0x403, 3, 0
+0x6161, "\000" 
+    IDC_COMBO3, 0x403, 3, 0
+0x6262, "\000" 
+    IDC_COMBO3, 0x403, 3, 0
+0x6363, "\000" 
+    IDC_COMBO3, 0x403, 3, 0
+0x6464, "\000" 
+    IDC_COMBO3, 0x403, 3, 0
+0x6565, "\000" 
+    IDC_COMBO3, 0x403, 3, 0
+0x6666, "\000" 
+    IDC_COMBO3, 0x403, 3, 0
+0x6767, "\000" 
+    0
+END
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -489,7 +553,7 @@ BEGIN
     IDS_EDIT_MENU           "Edit"
 END
 
-#endif    // English (U.S.) resources
+#endif    // 英语(美国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
