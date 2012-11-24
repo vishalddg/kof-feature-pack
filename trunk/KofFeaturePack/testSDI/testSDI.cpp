@@ -20,6 +20,8 @@
 #include "testSDIDoc.h"
 #include "testSDIView.h"
 #include "afxwin.h"
+#include "afxeditbrowsectrl.h"
+#include "afxcmn.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -145,7 +147,15 @@ protected:
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
-	CKofMFCButton m_BtnOne;
+	CMFCButton m_BtnOne;
+	CKofMFCEdit m_EditCtrl;
+	virtual BOOL OnInitDialog();
+	CKofComboBox m_Com1;
+	CKofComboBox m_Com2;
+	CKofComboBox m_Com3;
+	CKofStatic m_StcText;
+	CKofStatic m_StcColorText;
+	CKofProgressCtrl m_PgcOne;
 };
 
 CAboutDlg::CAboutDlg() : CKofDialogEx(CAboutDlg::IDD)
@@ -156,6 +166,13 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CKofDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_BUTTON1, m_BtnOne);
+	DDX_Control(pDX, IDC_EDIT1, m_EditCtrl);
+	DDX_Control(pDX, IDC_COMBO1, m_Com1);
+	DDX_Control(pDX, IDC_COMBO2, m_Com2);
+	DDX_Control(pDX, IDC_COMBO3, m_Com3);
+	DDX_Control(pDX, IDC_STATIC_TEXT, m_StcText);
+	DDX_Control(pDX, IDC_STATIC_CORTEXT, m_StcColorText);
+	DDX_Control(pDX, IDC_PROGRESS1, m_PgcOne);
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CKofDialogEx)
@@ -191,3 +208,14 @@ void CtestSDIApp::SaveCustomState()
 
 
 
+
+BOOL CAboutDlg::OnInitDialog()
+{
+	CKofDialogEx::OnInitDialog();
+
+	m_EditCtrl.EnableFileBrowseButton();
+	m_StcColorText.SetTextColor(RGB(255, 0, 0));
+	m_PgcOne.SetPos(20);
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// 异常: OCX 属性页应返回 FALSE
+}
