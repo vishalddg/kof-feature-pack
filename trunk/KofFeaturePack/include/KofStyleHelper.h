@@ -26,6 +26,10 @@ public:
 	virtual CSize GetCheckRadioDefaultSize();
 	virtual void OnDrawRadioButton(CDC *pDC, CRect rect, BOOL bOn, BOOL bHighlighted, BOOL bPressed, BOOL bEnabled);
 	virtual BOOL OnDrawPushButton(CDC* pDC, CRect rect, CMFCButton* pButton, COLORREF& clrText);
+	virtual BOOL IsOwnerDrawDlgSeparator(CWnd* /*pCtrl*/);
+	virtual void OnDrawDlgSeparator(CDC* pDC, CWnd* pCtrl, CRect rect, BOOL bIsHorz);
+	virtual void OnDrawEditBorder(CDC* pDC, CRect rect, BOOL bHighlighted, BOOL bDroppedDowned, BOOL bEnabled);
+	virtual void OnDrawRibbonComboDropButton(CDC* pDC, CRect rect, BOOL bDisabled, BOOL bIsDropped, BOOL bIsHighlighted);
 
 private:
 	CKofStyleHelper(void);
@@ -35,5 +39,8 @@ private:
 	COLORREF m_clrDlgBackground;
 	CBrush m_brDlgBackground;
 	CMFCControlRenderer m_ctrlRibbonBtnPush;
-
+	COLORREF m_clrRibbonEditBorder;
+	COLORREF m_clrRibbonEditBorderDisabled;
+	COLORREF m_clrRibbonEditBorderHighlighted;
+	COLORREF m_clrRibbonEditBorderPressed;
 };
