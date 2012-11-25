@@ -21,6 +21,7 @@ CKofMFCEdit::~CKofMFCEdit()
 BEGIN_MESSAGE_MAP(CKofMFCEdit, CMFCEditBrowseCtrl)
 	ON_WM_NCPAINT()
 	ON_WM_CTLCOLOR_REFLECT()
+	ON_WM_CONTEXTMENU()
 END_MESSAGE_MAP()
 
 void CKofMFCEdit::OnNcPaint()
@@ -31,12 +32,16 @@ void CKofMFCEdit::OnNcPaint()
 	CRect rectWindow;
 	GetWindowRect (rectWindow);
 
-	if (bHasScrollBars || (!TRUE && !FALSE))
+	if (/*bHasScrollBars ||*/ (!TRUE && !FALSE))
 	{
-		CEdit::OnNcPaint ();
+		CMFCEditBrowseCtrl::OnNcPaint ();
 	}
 	else
 	{
+		if (bHasScrollBars)
+		{
+			CMFCEditBrowseCtrl::OnNcPaint ();
+		}
 		CRect rectBorder = rectWindow;
 		rectBorder.bottom -= rectBorder.top;
 		rectBorder.right -= rectBorder.left;
@@ -187,4 +192,9 @@ void CKofMFCEdit::OnDrawBrowseButton( CDC* pDC, CRect rect, BOOL bIsButtonPresse
 		pDC->SetBkMode(nTextMode);
 		pDC->SelectObject(pFont);
 	}
+}
+
+void CKofMFCEdit::OnContextMenu(CWnd* pWnd, CPoint point)
+{
+	CKofStyleHelper::GetInstance()->OnEditContextMenu(pWnd, point);
 }

@@ -70,15 +70,28 @@
 #define IDC_STATIC_TEXT                 1009
 #define IDC_STATIC_CORTEXT              1010
 #define IDC_PROGRESS1                   1011
+#define IDC_BUTTON2                     1012
+#define IDC_SPIN1                       1013
+#define IDC_EDIT2                       1014
+#define IDC_RICHEDIT21                  1015
+#define IDC_DATETIMEPICKER1             1016
+#define IDC_EDIT3                       1017
+#define IDC_LIST1                       1018
+#define IDC_EDIT4                       1019
 #define ID_WRITE_PASTEASHYPERLINK       32770
+#define ID_2000                         32771
+#define ID_OFFICEXP                     32772
+#define ID_WINDOWSXP                    32773
+#define ID_OFFICE2003                   32774
+#define ID_VS2005                       32775
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1012
+#define _APS_NEXT_COMMAND_VALUE         32776
+#define _APS_NEXT_CONTROL_VALUE         1020
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

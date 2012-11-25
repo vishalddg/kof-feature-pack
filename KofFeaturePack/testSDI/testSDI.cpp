@@ -22,6 +22,7 @@
 #include "afxwin.h"
 #include "afxeditbrowsectrl.h"
 #include "afxcmn.h"
+#include "afxcolorbutton.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -87,7 +88,7 @@ BOOL CtestSDIApp::InitInstance()
 	LoadStdProfileSettings(0);  // Load standard INI file options
 
 	InitContextMenuManager();
-
+	AfxInitRichEdit2();
 	InitKeyboardManager();
 
 	InitTooltipManager();
@@ -150,12 +151,19 @@ public:
 	CMFCButton m_BtnOne;
 	CKofMFCEdit m_EditCtrl;
 	virtual BOOL OnInitDialog();
-	CKofComboBox m_Com1;
 	CKofComboBox m_Com2;
 	CKofComboBox m_Com3;
 	CKofStatic m_StcText;
 	CKofStatic m_StcColorText;
 	CKofProgressCtrl m_PgcOne;
+	CKofMFCColorButton m_ColorPicker;
+	CKofMFCSpinButtonCtrl m_SpnOne;
+	CKofMFCEdit m_EditTwo;
+	CKofRichEditCtrl m_RichOne;
+	CKofMFCEdit m_edtTwo;
+	CMFCListCtrl m_ListOne;
+	CKofMFCFontComboBox m_comFont;
+	CKofMFCMaskedEdit m_EdtMask;
 };
 
 CAboutDlg::CAboutDlg() : CKofDialogEx(CAboutDlg::IDD)
@@ -167,12 +175,19 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 	CKofDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_BUTTON1, m_BtnOne);
 	DDX_Control(pDX, IDC_EDIT1, m_EditCtrl);
-	DDX_Control(pDX, IDC_COMBO1, m_Com1);
 	DDX_Control(pDX, IDC_COMBO2, m_Com2);
 	DDX_Control(pDX, IDC_COMBO3, m_Com3);
 	DDX_Control(pDX, IDC_STATIC_TEXT, m_StcText);
 	DDX_Control(pDX, IDC_STATIC_CORTEXT, m_StcColorText);
 	DDX_Control(pDX, IDC_PROGRESS1, m_PgcOne);
+	DDX_Control(pDX, IDC_BUTTON2, m_ColorPicker);
+	DDX_Control(pDX, IDC_SPIN1, m_SpnOne);
+	DDX_Control(pDX, IDC_EDIT2, m_EditTwo);
+	DDX_Control(pDX, IDC_RICHEDIT21, m_RichOne);
+	DDX_Control(pDX, IDC_EDIT3, m_edtTwo);
+	DDX_Control(pDX, IDC_LIST1, m_ListOne);
+	DDX_Control(pDX, IDC_COMBO1, m_comFont);
+	DDX_Control(pDX, IDC_EDIT4, m_EdtMask);
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CKofDialogEx)
@@ -216,6 +231,22 @@ BOOL CAboutDlg::OnInitDialog()
 	m_EditCtrl.EnableFileBrowseButton();
 	m_StcColorText.SetTextColor(RGB(255, 0, 0));
 	m_PgcOne.SetPos(20);
+	m_ColorPicker.EnableAutomaticButton(_T("默认值"), RGB(0, 0, 0)); 
+	m_ColorPicker.EnableOtherButton(_T("其余颜色")); 
+	m_ColorPicker.SetColor((COLORREF)-1); 
+	m_ColorPicker.SetColumnsNumber(10); 
+
+	m_ListOne.InsertColumn(0, _T("列一"), LVCFMT_LEFT, 40);
+	m_ListOne.InsertColumn(1, _T("列二"), LVCFMT_LEFT, 30);
+	m_ListOne.InsertItem(0, _T("dfdf"));
+	m_ListOne.InsertItem(1, _T("dfdfdfdf"));
+
+	m_comFont.SelectFont(_T("Arial"));
+	m_EdtMask.EnableMask(_T(" ddd  ddd dddd"), // The mask string
+		_T("(___) ___-____"), // Literal, "_" char = character entry
+		_T(' ')); // Default char
+	m_EdtMask.SetValidChars(NULL); // Valid string characters
+	m_EdtMask.SetWindowText(_T("(123) 123-1212"));
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

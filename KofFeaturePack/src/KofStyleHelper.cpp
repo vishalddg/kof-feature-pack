@@ -311,3 +311,132 @@ void CKofStyleHelper::OnDrawRibbonComboDropButton( CDC* pDC, CRect rect, BOOL bD
 		bIsHighlighted,
 		&buttonDummy);
 }
+
+void CKofStyleHelper::OnEditContextMenu( CWnd* pWnd, CPoint point )
+{
+	pWnd->SetFocus();
+
+	CEdit *pEdit = DYNAMIC_DOWNCAST(CEdit, pWnd);
+	CRichEditCtrl *pRichEdit = DYNAMIC_DOWNCAST(CRichEditCtrl, pWnd);
+	if (NULL == pEdit && NULL == pRichEdit)
+	{
+		return;
+	}
+
+	const UINT idCut		= (UINT) -10002;
+	const UINT idCopy		= (UINT) -10003;
+	const UINT idPaste		= (UINT) -10004;
+	const UINT idSelectAll	= (UINT) -10005;
+
+	CString strItem;
+	TCHAR szFullText [256];
+
+	CMenu menu;
+	menu.CreatePopupMenu ();
+
+	AfxLoadString (ID_EDIT_CUT, szFullText);
+	AfxExtractSubString (strItem, szFullText, 1, '\n');
+	menu.AppendMenu (MF_STRING, idCut, strItem);
+
+	AfxLoadString (ID_EDIT_COPY, szFullText);
+	AfxExtractSubString (strItem, szFullText, 1, '\n');
+	menu.AppendMenu (MF_STRING, idCopy, strItem);
+
+	AfxLoadString (ID_EDIT_PASTE, szFullText);
+	AfxExtractSubString (strItem, szFullText, 1, '\n');
+	menu.AppendMenu (MF_STRING, idPaste, strItem);
+
+	menu.AppendMenu (MF_SEPARATOR);
+
+	AfxLoadString (ID_EDIT_SELECT_ALL, szFullText);
+	AfxExtractSubString (strItem, szFullText, 1, '\n');
+	menu.AppendMenu (MF_STRING, idSelectAll, strItem);
+
+#ifdef _UNICODE
+	#define _TCF_TEXT	CF_UNICODETEXT
+#else
+	#define _TCF_TEXT	CF_TEXT
+#endif
+
+	if (!::IsClipboardFormatAvailable (_TCF_TEXT))
+	{
+		menu.EnableMenuItem (idPaste, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	}
+
+	long nStart, nEnd;
+	if (pEdit)
+	{
+		int niStart, niEnd;
+		pEdit->GetSel (niStart, niEnd);
+		nStart = niStart;
+		nEnd = niEnd;
+	} 
+	else
+	{
+		pRichEdit->GetSel (nStart, nEnd);
+	}
+
+	if (nEnd <= nStart)
+	{
+		menu.EnableMenuItem (idCopy, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+		menu.EnableMenuItem (idCut, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	}
+
+	if (pWnd->GetWindowTextLength () == 0)
+	{
+		menu.EnableMenuItem (idSelectAll, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	}
+	int nMenuResult = 0;
+	if (((CWinAppEx*)AfxGetApp())->GetContextMenuManager() != NULL)
+	{
+		nMenuResult = ((CWinAppEx*)AfxGetApp())->GetContextMenuManager()->TrackPopupMenu (
+			menu, point.x, point.y, pWnd);
+	} 
+	else
+	{
+		nMenuResult = menu.TrackPopupMenu(TPM_LEFTBUTTON | TPM_RETURNCMD, point.x, point.y, pWnd);
+	}
+
+	if (pEdit)
+	{
+		switch (nMenuResult)
+		{
+		case idCut:
+			pEdit->Cut ();
+			break;
+
+		case idCopy:
+			pEdit->Copy ();
+			break;
+
+		case idPaste:
+			pEdit->Paste ();
+			break;
+
+		case idSelectAll:
+			pEdit->SetSel (0, -1);
+			break;
+		}
+	} 
+	else
+	{
+		switch (nMenuResult)
+		{
+		case idCut:
+			pRichEdit->Cut ();
+			break;
+
+		case idCopy:
+			pRichEdit->Copy ();
+			break;
+
+		case idPaste:
+			pRichEdit->Paste ();
+			break;
+
+		case idSelectAll:
+			pRichEdit->SetSel (0, -1);
+			break;
+		}
+	}	
+}

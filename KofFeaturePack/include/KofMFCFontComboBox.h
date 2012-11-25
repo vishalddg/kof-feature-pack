@@ -3,15 +3,13 @@
 #include "KofMFCEdit.h"
 
 //////////////////////////////////////////////////////////////////////////
-// CKofComboBox
+// CKofMFCFontComboBox
 
-class KOFPACKDLLEXPORT CKofComboBox : public CComboBox
+class KOFPACKDLLEXPORT CKofMFCFontComboBox : public CMFCFontComboBox
 {
-	DECLARE_DYNAMIC(CKofComboBox)
-
 public:
-	CKofComboBox();
-	virtual ~CKofComboBox();
+	CKofMFCFontComboBox();
+	virtual ~CKofMFCFontComboBox();
 
 	CKofMFCEdit m_edit;
 protected:

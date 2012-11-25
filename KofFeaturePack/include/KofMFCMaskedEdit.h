@@ -2,20 +2,19 @@
 #include "KofPack.h"
 
 //////////////////////////////////////////////////////////////////////////
-// CKofMFCEdit
+// CKofMFCMaskedEdit
 
-class KOFPACKDLLEXPORT CKofMFCEdit : public CMFCEditBrowseCtrl
+class KOFPACKDLLEXPORT CKofMFCMaskedEdit : public CMFCMaskedEdit
 {
-	DECLARE_DYNAMIC(CKofMFCEdit)
+	DECLARE_DYNAMIC(CKofMFCMaskedEdit)
 
 public:
-	CKofMFCEdit();
-	virtual ~CKofMFCEdit();
+	CKofMFCMaskedEdit();
+	virtual ~CKofMFCMaskedEdit();
 
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
-	virtual void OnDrawBrowseButton(CDC* pDC, CRect rect, BOOL bIsButtonPressed, BOOL bIsButtonHot);
 	afx_msg void OnNcPaint();
 	afx_msg HBRUSH CtlColor(CDC* /*pDC*/, UINT /*nCtlColor*/);
 	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
