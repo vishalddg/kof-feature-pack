@@ -1,15 +1,13 @@
-// ..\src\KofComboBox.cpp : 实现文件
+// ..\src\KofMFCFontComboBox.cpp : 实现文件
 
 #include "stdafx.h"
-#include "..\include\KofComboBox.h"
+#include "..\include\KofMFCFontComboBox.h"
 #include "..\include\KofStyleHelper.h"
 
 //////////////////////////////////////////////////////////////////////////
-// CKofComboBox
+// CKofMFCFontComboBox
 
-IMPLEMENT_DYNAMIC(CKofComboBox, CComboBox)
-
-CKofComboBox::CKofComboBox()
+CKofMFCFontComboBox::CKofMFCFontComboBox()
 {
 	m_bIsDroppedDown = FALSE;
 	m_bIsButtonHighlighted = FALSE;
@@ -17,22 +15,22 @@ CKofComboBox::CKofComboBox()
 	m_bTracked = FALSE;
 }
 
-CKofComboBox::~CKofComboBox()
+CKofMFCFontComboBox::~CKofMFCFontComboBox()
 {
 }
 
-BEGIN_MESSAGE_MAP(CKofComboBox, CComboBox)
+BEGIN_MESSAGE_MAP(CKofMFCFontComboBox, CMFCFontComboBox)
 	ON_WM_PAINT()
 	ON_WM_MOUSEMOVE()
 	ON_WM_CANCELMODE()
 	ON_WM_LBUTTONDOWN()
-	ON_CONTROL_REFLECT_EX(CBN_CLOSEUP, &CKofComboBox::OnCbnCloseup)
-	ON_CONTROL_REFLECT_EX(CBN_DROPDOWN, &CKofComboBox::OnCbnDropdown)
+	ON_CONTROL_REFLECT_EX(CBN_CLOSEUP, &CKofMFCFontComboBox::OnCbnCloseup)
+	ON_CONTROL_REFLECT_EX(CBN_DROPDOWN, &CKofMFCFontComboBox::OnCbnDropdown)
 	ON_WM_CTLCOLOR()
 	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
-void CKofComboBox::OnPaint()
+void CKofMFCFontComboBox::OnPaint()
 {
 	if ((GetStyle () & 0x0003L) == CBS_SIMPLE)
 	{
@@ -79,7 +77,7 @@ void CKofComboBox::OnPaint()
 	CKofStyleHelper::GetInstance()->OnDrawRibbonComboDropButton(pDC, m_rectBtn, !IsWindowEnabled(), m_bIsDroppedDown, m_bIsButtonHighlighted);
 }
 
-void CKofComboBox::OnMouseMove(UINT nFlags, CPoint point)
+void CKofMFCFontComboBox::OnMouseMove(UINT nFlags, CPoint point)
 {
 	if ((nFlags & MK_LBUTTON) == 0)
 	{
@@ -112,7 +110,7 @@ void CKofComboBox::OnMouseMove(UINT nFlags, CPoint point)
 	CComboBox::OnMouseMove(nFlags, point);
 }
 
-void CKofComboBox::OnCancelMode()
+void CKofMFCFontComboBox::OnCancelMode()
 {
 	CComboBox::OnCancelMode();
 
@@ -126,7 +124,7 @@ void CKofComboBox::OnCancelMode()
 	}
 }
 
-void CKofComboBox::OnLButtonDown(UINT nFlags, CPoint point)
+void CKofMFCFontComboBox::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	if (m_bTracked)
 	{
@@ -140,7 +138,7 @@ void CKofComboBox::OnLButtonDown(UINT nFlags, CPoint point)
 	CComboBox::OnLButtonDown(nFlags, point);
 }
 
-BOOL CKofComboBox::OnCbnCloseup()
+BOOL CKofMFCFontComboBox::OnCbnCloseup()
 {
 	m_bIsDroppedDown = FALSE;
 	m_bIsButtonHighlighted = FALSE;
@@ -150,7 +148,7 @@ BOOL CKofComboBox::OnCbnCloseup()
 	return FALSE;
 }
 
-BOOL CKofComboBox::OnCbnDropdown()
+BOOL CKofMFCFontComboBox::OnCbnDropdown()
 {
 	if (m_bTracked)
 	{
@@ -164,8 +162,7 @@ BOOL CKofComboBox::OnCbnDropdown()
 
 	return FALSE;
 }
-
-HBRUSH CKofComboBox::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+HBRUSH CKofMFCFontComboBox::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	if (nCtlColor == CTLCOLOR_EDIT)
 	{
@@ -177,15 +174,15 @@ HBRUSH CKofComboBox::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	else
 	{
 	}
-	HBRUSH hbr = CComboBox::OnCtlColor(pDC, pWnd, nCtlColor);
+	HBRUSH hbr = CMFCFontComboBox::OnCtlColor(pDC, pWnd, nCtlColor);
 	return hbr;
 }
 
-void CKofComboBox::OnDestroy()
+void CKofMFCFontComboBox::OnDestroy()
 {
 	if (m_edit.GetSafeHwnd())
 	{
 		m_edit.UnsubclassWindow();
 	}
-	CComboBox::OnDestroy();
+	CMFCFontComboBox::OnDestroy();
 }

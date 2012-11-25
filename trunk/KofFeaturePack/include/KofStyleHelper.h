@@ -30,6 +30,7 @@ public:
 	virtual void OnDrawDlgSeparator(CDC* pDC, CWnd* pCtrl, CRect rect, BOOL bIsHorz);
 	virtual void OnDrawEditBorder(CDC* pDC, CRect rect, BOOL bHighlighted, BOOL bDroppedDowned, BOOL bEnabled);
 	virtual void OnDrawRibbonComboDropButton(CDC* pDC, CRect rect, BOOL bDisabled, BOOL bIsDropped, BOOL bIsHighlighted);
+	virtual void OnEditContextMenu(CWnd* pWnd, CPoint point);
 
 private:
 	CKofStyleHelper(void);
