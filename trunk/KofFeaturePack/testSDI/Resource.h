@@ -78,6 +78,7 @@
 #define IDC_EDIT3                       1017
 #define IDC_LIST1                       1018
 #define IDC_EDIT4                       1019
+#define IDC_COMBO4                      1020
 #define ID_WRITE_PASTEASHYPERLINK       32770
 #define ID_2000                         32771
 #define ID_OFFICEXP                     32772
@@ -91,7 +92,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
 #define _APS_NEXT_COMMAND_VALUE         32776
-#define _APS_NEXT_CONTROL_VALUE         1020
+#define _APS_NEXT_CONTROL_VALUE         1021
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

@@ -11,7 +11,7 @@ IMPLEMENT_DYNAMIC(CKofMFCEdit, CMFCEditBrowseCtrl)
 
 CKofMFCEdit::CKofMFCEdit()
 {
-
+	m_bIsNeedBorder = TRUE;
 }
 
 CKofMFCEdit::~CKofMFCEdit()
@@ -46,9 +46,12 @@ void CKofMFCEdit::OnNcPaint()
 		rectBorder.bottom -= rectBorder.top;
 		rectBorder.right -= rectBorder.left;
 		rectBorder.left = rectBorder.top = 0;
-		CKofStyleHelper::GetInstance()->OnDrawEditBorder(&dc, rectBorder, m_bIsButtonHighlighted, m_bIsButtonPressed, IsWindowEnabled());
-		rectBorder.DeflateRect(1, 1);
-		dc.Draw3dRect(rectBorder, afxGlobalData.clrWindow, afxGlobalData.clrWindow);
+		if (m_bIsNeedBorder)
+		{
+			CKofStyleHelper::GetInstance()->OnDrawEditBorder(&dc, rectBorder, m_bIsButtonHighlighted, m_bIsButtonPressed, IsWindowEnabled());
+			rectBorder.DeflateRect(1, 1);
+			dc.Draw3dRect(rectBorder, afxGlobalData.clrWindow, afxGlobalData.clrWindow);
+		}
 	}
 
 	if (GetStyle () & WS_BORDER)
