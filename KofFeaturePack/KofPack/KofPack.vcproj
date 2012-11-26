@@ -299,6 +299,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\src\KofComboBox.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\KofDialogEx.cpp"
 				>
 			</File>
@@ -311,6 +315,26 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\KofMFCColorButton.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCEdit.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCFontComboBox.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCMaskedEdit.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCSpinButtonCtrl.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\KofPack.cpp"
 				>
 			</File>
@@ -320,6 +344,18 @@
 			</File>
 			<File
 				RelativePath=".\KofPackd.def"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofProgressCtrl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofRichEditCtrl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofStatic.cpp"
 				>
 			</File>
 			<File
@@ -361,6 +397,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\include\KofComboBox.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\KofDialogEx.h"
 				>
 			</File>
@@ -373,6 +413,26 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\KofMFCColorButton.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCEdit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCFontComboBox.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCMaskedEdit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCSpinButtonCtrl.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\KofPack.h"
 				>
 			</File>
@@ -381,7 +441,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\KofProgressCtrl.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\KofResource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofRichEditCtrl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofStatic.h"
 				>
 			</File>
 			<File

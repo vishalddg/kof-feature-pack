@@ -73,6 +73,8 @@ void CKofMFCFontComboBox::OnPaint()
 	CKofStyleHelper::GetInstance()->OnDrawEditBorder(pDC, rectClient, m_bIsButtonHighlighted, m_bIsDroppedDown, IsWindowEnabled());
 	rectClient.DeflateRect (1, 1);
 	dm.DrawRect (rectClient, (COLORREF)-1, afxGlobalData.clrWindow);
+	rectClient.DeflateRect (1, 1);
+	dm.DrawRect (rectClient, (COLORREF)-1, afxGlobalData.clrWindow);
 
 	CKofStyleHelper::GetInstance()->OnDrawRibbonComboDropButton(pDC, m_rectBtn, !IsWindowEnabled(), m_bIsDroppedDown, m_bIsButtonHighlighted);
 }
@@ -169,6 +171,7 @@ HBRUSH CKofMFCFontComboBox::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		if (NULL == m_edit.GetSafeHwnd())
 		{
 			m_edit.SubclassWindow(pWnd->GetSafeHwnd());
+			m_edit.SetNeedBorder(FALSE);
 		}
 	} 
 	else

@@ -12,8 +12,11 @@ public:
 	CKofMFCEdit();
 	virtual ~CKofMFCEdit();
 
+	void SetNeedBorder(BOOL bIsNeedBorder){m_bIsNeedBorder = bIsNeedBorder;}
 protected:
+	BOOL m_bIsNeedBorder;
 	DECLARE_MESSAGE_MAP()
+
 public:
 	virtual void OnDrawBrowseButton(CDC* pDC, CRect rect, BOOL bIsButtonPressed, BOOL bIsButtonHot);
 	afx_msg void OnNcPaint();
