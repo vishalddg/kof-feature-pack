@@ -491,10 +491,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\Blue\Ribbon\Buttons\Radio.png"
-				>
-			</File>
-			<File
 				RelativePath="..\include\res\RibbonStyle2007Aqua.rc2"
 				>
 			</File>

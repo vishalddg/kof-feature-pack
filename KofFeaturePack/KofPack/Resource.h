@@ -2,7 +2,6 @@
 // Microsoft Visual C++ generated include file.
 // Used by KofPack.rc
 //
-#define IDB_PNG1                        1000
 
 // Next default values for new objects
 // 

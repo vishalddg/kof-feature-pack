@@ -1,6 +1,9 @@
 #include "StdAfx.h"
 #include "..\include\KofStyleHelper.h"
+#include "..\include\KofResource.h"
 #include "afxtagmanager.h"
+
+extern HINSTANCE theInstance;
 
 class CKofMFCVisualManager : public CMFCVisualManager
 {
@@ -46,28 +49,12 @@ BOOL CKofStyleHelper::SetStyle( UINT nStyle )
 	{
 	case KOF_CMFCVisualManagerOffice2007:
 		{
+			HINSTANCE saveInstance = AfxGetResourceHandle();
+			AfxSetResourceHandle(theInstance);			
+
 			m_clrDlgBackground = afxGlobalData.clrBarLight;
-
-			m_ctrlRibbonBtnPush.CleanUp();
-			CString strID = _T("BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH");
-			CMFCControlRendererInfo params(strID, CRect(0, 0, 0, 0), CRect(0, 0, 0, 0));
-			CString strItem = _T("<SIZE>102, 22</SIZE><CORNERS>3, 4, 3, 3</CORNERS>");
-			if (CTagManager::ParseControlRendererInfo(strItem, params))
-			{
-				//HINSTANCE hinstRes = AfxFindResourceHandle(strStyle, AFX_RT_STYLE_XML);
-				m_ctrlRibbonBtnPush.Create(params);
-			}
-
-			m_ctrlRibbonBtnRadio.CleanUp();
-			strID = _T("IDB_PNG1");
-			CMFCControlRendererInfo params2(strID, CRect(0, 0, 0, 0), CRect(0, 0, 0, 0));
-			strItem = _T("<SIZE>13, 13</SIZE>");
-			if (CTagManager::ParseControlRendererInfo(strItem, params2))
-			{
-				//HINSTANCE hinstRes = AfxFindResourceHandle(strStyle, AFX_RT_STYLE_XML);
-				m_ctrlRibbonBtnRadio.Create(params2);
-			}
-
+			UINT nIDPush = 0;
+			UINT nIDRadio = 0;
 			switch (style2007)
 			{
 			case CMFCVisualManagerOffice2007::Office2007_LunaBlue:
@@ -76,26 +63,51 @@ BOOL CKofStyleHelper::SetStyle( UINT nStyle )
 				m_clrRibbonEditBorderDisabled = RGB(177, 187, 198);
 				m_clrRibbonEditBorderHighlighted = RGB(179, 199, 225);
 				m_clrRibbonEditBorderPressed = RGB(179, 199, 225);
+				nIDPush = BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
+				nIDRadio = BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
 				break;
 			case CMFCVisualManagerOffice2007::Office2007_ObsidianBlack:
 				m_clrRibbonEditBorder = RGB(137, 137, 137);
 				m_clrRibbonEditBorderDisabled = RGB(204, 204, 204);
 				m_clrRibbonEditBorderHighlighted = RGB(137, 137, 137);
 				m_clrRibbonEditBorderPressed = RGB(137, 137, 137);
+				nIDPush = BLACK_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
+				nIDRadio = BLACK_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
 				break;
 			case CMFCVisualManagerOffice2007::Office2007_Aqua:
 				m_clrRibbonEditBorder = RGB(177, 187, 198);
 				m_clrRibbonEditBorderDisabled = RGB(177, 187, 198);
 				m_clrRibbonEditBorderHighlighted = RGB(148, 168, 198);
 				m_clrRibbonEditBorderPressed = RGB(148, 168, 198);
+				nIDPush = AQUA_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
+				nIDRadio = AQUA_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
 				break;
 			case CMFCVisualManagerOffice2007::Office2007_Silver:
 				m_clrRibbonEditBorder = RGB(169, 177, 184);
 				m_clrRibbonEditBorderDisabled = RGB(177, 187, 198);
 				m_clrRibbonEditBorderHighlighted = RGB(164, 164, 164);
 				m_clrRibbonEditBorderPressed = RGB(164, 164, 164);
+				nIDPush = SILVER_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
+				nIDRadio = SILVER_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
 				break;
-			}			
+			}
+			m_ctrlRibbonBtnPush.CleanUp();
+			CMFCControlRendererInfo params(MAKEINTRESOURCE(nIDPush), CRect(0, 0, 0, 0), CRect(0, 0, 0, 0));
+			CString strItem = _T("<SIZE>102, 22</SIZE><CORNERS>3, 4, 3, 3</CORNERS>");
+			if (CTagManager::ParseControlRendererInfo(strItem, params))
+			{
+				m_ctrlRibbonBtnPush.Create(params);
+			}
+
+			m_ctrlRibbonBtnRadio.CleanUp();
+			CMFCControlRendererInfo params2(MAKEINTRESOURCE(nIDRadio), CRect(0, 0, 0, 0), CRect(0, 0, 0, 0));
+			strItem = _T("<SIZE>13, 13</SIZE>");
+			if (CTagManager::ParseControlRendererInfo(strItem, params2))
+			{
+				m_ctrlRibbonBtnRadio.Create(params2);
+			}
+
+			AfxSetResourceHandle(saveInstance);
 		}
 		break;
 	default:

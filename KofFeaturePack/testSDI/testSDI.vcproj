@@ -375,6 +375,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\Radio.bmp"
+				>
+			</File>
+			<File
 				RelativePath="..\include\Black\Ribbon\Buttons\Radio.PNG"
 				>
 			</File>
