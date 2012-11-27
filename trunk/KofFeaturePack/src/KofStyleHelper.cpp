@@ -25,6 +25,7 @@ CKofStyleHelper::~CKofStyleHelper(void)
 	m_clrDlgBackground = (COLORREF)-1;
 	m_brDlgBackground.DeleteObject();
 	m_ctrlRibbonBtnPush.CleanUp();
+	m_ctrlRibbonBtnRadio.CleanUp();
 }
 
 BOOL CKofStyleHelper::SetStyle( UINT nStyle )
@@ -46,17 +47,27 @@ BOOL CKofStyleHelper::SetStyle( UINT nStyle )
 	case KOF_CMFCVisualManagerOffice2007:
 		{
 			m_clrDlgBackground = afxGlobalData.clrBarLight;
-			m_ctrlRibbonBtnPush.CleanUp();
 
+			m_ctrlRibbonBtnPush.CleanUp();
 			CString strID = _T("BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH");
 			CMFCControlRendererInfo params(strID, CRect(0, 0, 0, 0), CRect(0, 0, 0, 0));
-
 			CString strItem = _T("<SIZE>102, 22</SIZE><CORNERS>3, 4, 3, 3</CORNERS>");
 			if (CTagManager::ParseControlRendererInfo(strItem, params))
 			{
 				//HINSTANCE hinstRes = AfxFindResourceHandle(strStyle, AFX_RT_STYLE_XML);
 				m_ctrlRibbonBtnPush.Create(params);
 			}
+
+			m_ctrlRibbonBtnRadio.CleanUp();
+			strID = _T("IDB_PNG1");
+			CMFCControlRendererInfo params2(strID, CRect(0, 0, 0, 0), CRect(0, 0, 0, 0));
+			strItem = _T("<SIZE>13, 13</SIZE>");
+			if (CTagManager::ParseControlRendererInfo(strItem, params2))
+			{
+				//HINSTANCE hinstRes = AfxFindResourceHandle(strStyle, AFX_RT_STYLE_XML);
+				m_ctrlRibbonBtnRadio.Create(params2);
+			}
+
 			switch (style2007)
 			{
 			case CMFCVisualManagerOffice2007::Office2007_LunaBlue:
@@ -132,8 +143,13 @@ void CKofStyleHelper::OnDrawRadioButton( CDC *pDC, CRect rect, BOOL bOn, BOOL bH
 	case KOF_CMFCVisualManagerWindows:
 	case KOF_CMFCVisualManagerOffice2003:
 	case KOF_CMFCVisualManagerVS2005:
-	case KOF_CMFCVisualManagerOffice2007:
 		if (CMFCVisualManager::GetInstance()->DrawRadioButton(pDC, rect, bHighlighted, bOn, bEnabled, bPressed))
+		{
+			return;
+		}
+		break;
+	case KOF_CMFCVisualManagerOffice2007:
+		if (Draw2007RadioButton(pDC, rect, bHighlighted, bOn, bEnabled, bPressed))
 		{
 			return;
 		}
@@ -439,4 +455,42 @@ void CKofStyleHelper::OnEditContextMenu( CWnd* pWnd, CPoint point )
 			break;
 		}
 	}	
+}
+
+BOOL CKofStyleHelper::Draw2007RadioButton( CDC *pDC, CRect rect, BOOL bHighlighted, BOOL bChecked, BOOL bEnabled, BOOL bPressed )
+{
+	int index = bChecked ? 4 : 0;
+
+	if (!bEnabled)
+	{
+		index += 3;
+	}
+	else if (bPressed)
+	{
+		if (bHighlighted)
+		{
+			index += 2;
+		}
+	}
+	else if (bHighlighted)
+	{
+		index += 1;
+	}
+
+	if (afxGlobalData.m_bIsRTL)
+	{
+		m_ctrlRibbonBtnRadio.Mirror ();
+	}
+
+	m_ctrlRibbonBtnRadio.FillInterior (pDC, rect, 
+		CMFCToolBarImages::ImageAlignHorzCenter, 
+		CMFCToolBarImages::ImageAlignVertCenter,
+		index);
+
+	if (afxGlobalData.m_bIsRTL)
+	{
+		m_ctrlRibbonBtnRadio.Mirror ();
+	}
+
+	return TRUE;
 }

@@ -58,6 +58,8 @@
 #define IDS_RIBBON_STATUSBAR            289
 #define IDS_RIBBON_VIEW                 290
 #define IDS_EDIT_MENU                   306
+#define IDB_PNG1                        311
+#define IDB_PNG2                        311
 #define IDC_BUTTON1                     1000
 #define IDC_CHECK1                      1001
 #define IDC_CHECK2                      1002
@@ -90,7 +92,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        311
+#define _APS_NEXT_RESOURCE_VALUE        312
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1021
 #define _APS_NEXT_SYMED_VALUE           310
