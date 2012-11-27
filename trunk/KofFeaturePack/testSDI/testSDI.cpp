@@ -150,7 +150,7 @@ protected:
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
-	CMFCButton m_BtnOne;
+	CKofMFCButton m_BtnOne;
 	CKofMFCEdit m_EditCtrl;
 	virtual BOOL OnInitDialog();
 	CKofComboBox m_Com2;
@@ -170,8 +170,6 @@ public:
 	CKofMFCButton m_BtnRad1;
 	CKofMFCButton m_BtnChk2;
 	CKofMFCButton m_BtnRad2;
-	CMFCControlRenderer m_ctrlRibbonBtnRadio;
-
 };
 
 CAboutDlg::CAboutDlg() : CKofDialogEx(CAboutDlg::IDD)
@@ -261,15 +259,6 @@ BOOL CAboutDlg::OnInitDialog()
 
 	m_BtnRad2.SubclassDlgItem(IDC_RADIO2, this);
 
-
-	m_ctrlRibbonBtnRadio.CleanUp();
-	CString strID = _T("IDB_PNG2");
-	CMFCControlRendererInfo params2(strID, CRect(0, 0, 0, 0), CRect(0, 0, 0, 0));
-	CString strItem = _T("<SIZE>13, 13</SIZE>");
-	if (CTagManager::ParseControlRendererInfo(strItem, params2))
-	{
-		m_ctrlRibbonBtnRadio.Create(params2);
-	}
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

@@ -11,6 +11,7 @@
 #define new DEBUG_NEW
 #endif
 
+HINSTANCE theInstance;
 static AFX_EXTENSION_MODULE KofPackDLL = { NULL, NULL };
 
 extern "C" int APIENTRY
@@ -40,7 +41,7 @@ DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 		//  result.
 
 		new CDynLinkLibrary(KofPackDLL);
-
+		theInstance = hInstance;
 	}
 	else if (dwReason == DLL_PROCESS_DETACH)
 	{
