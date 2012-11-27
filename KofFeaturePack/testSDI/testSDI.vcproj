@@ -375,6 +375,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\Black\Ribbon\Buttons\Radio.PNG"
+				>
+			</File>
+			<File
 				RelativePath=".\res\testSDI.ico"
 				>
 			</File>

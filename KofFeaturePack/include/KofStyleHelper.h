@@ -31,6 +31,7 @@ public:
 	virtual void OnDrawEditBorder(CDC* pDC, CRect rect, BOOL bHighlighted, BOOL bDroppedDowned, BOOL bEnabled);
 	virtual void OnDrawRibbonComboDropButton(CDC* pDC, CRect rect, BOOL bDisabled, BOOL bIsDropped, BOOL bIsHighlighted);
 	virtual void OnEditContextMenu(CWnd* pWnd, CPoint point);
+	virtual BOOL Draw2007RadioButton(CDC *pDC, CRect rect, BOOL bHighlighted, BOOL bChecked, BOOL bEnabled, BOOL bPressed);
 
 private:
 	CKofStyleHelper(void);
@@ -40,6 +41,7 @@ private:
 	COLORREF m_clrDlgBackground;
 	CBrush m_brDlgBackground;
 	CMFCControlRenderer m_ctrlRibbonBtnPush;
+	CMFCControlRenderer m_ctrlRibbonBtnRadio;
 	COLORREF m_clrRibbonEditBorder;
 	COLORREF m_clrRibbonEditBorderDisabled;
 	COLORREF m_clrRibbonEditBorderHighlighted;

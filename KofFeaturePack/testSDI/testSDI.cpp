@@ -23,6 +23,8 @@
 #include "afxeditbrowsectrl.h"
 #include "afxcmn.h"
 #include "afxcolorbutton.h"
+#include "afxtagmanager.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -166,7 +168,10 @@ public:
 	CKofMFCMaskedEdit m_EdtMask;
 	CKofMFCButton m_BtnChk1;
 	CKofMFCButton m_BtnRad1;
-	CButton m_BtnChk2;
+	CKofMFCButton m_BtnChk2;
+	CKofMFCButton m_BtnRad2;
+	CMFCControlRenderer m_ctrlRibbonBtnRadio;
+
 };
 
 CAboutDlg::CAboutDlg() : CKofDialogEx(CAboutDlg::IDD)
@@ -253,6 +258,18 @@ BOOL CAboutDlg::OnInitDialog()
 		_T(' ')); // Default char
 	m_EdtMask.SetValidChars(NULL); // Valid string characters
 	m_EdtMask.SetWindowText(_T("(123) 123-1212"));
+
+	m_BtnRad2.SubclassDlgItem(IDC_RADIO2, this);
+
+
+	m_ctrlRibbonBtnRadio.CleanUp();
+	CString strID = _T("IDB_PNG2");
+	CMFCControlRendererInfo params2(strID, CRect(0, 0, 0, 0), CRect(0, 0, 0, 0));
+	CString strItem = _T("<SIZE>13, 13</SIZE>");
+	if (CTagManager::ParseControlRendererInfo(strItem, params2))
+	{
+		m_ctrlRibbonBtnRadio.Create(params2);
+	}
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
