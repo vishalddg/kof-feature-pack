@@ -311,6 +311,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\KofGroup.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\KofMFCButton.cpp"
 				>
 			</File>
@@ -406,6 +410,10 @@
 			</File>
 			<File
 				RelativePath="..\include\KofDlgImpl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofGroup.h"
 				>
 			</File>
 			<File
@@ -513,5 +521,9 @@
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="KofPack.rc"
+		/>
 	</Globals>
 </VisualStudioProject>
