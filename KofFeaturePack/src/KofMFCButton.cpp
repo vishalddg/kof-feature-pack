@@ -16,7 +16,7 @@ CKofMFCButton::CKofMFCButton()
 	m_bIsLeftText = FALSE;
 	m_b3State = FALSE;
 	m_bIndeterminate = FALSE;
-
+	m_bDefaultButton = FALSE;
 }
 
 CKofMFCButton::~CKofMFCButton()
@@ -202,7 +202,7 @@ void CKofMFCButton::InitStyleEx( DWORD dwStyle )
 		m_bRadioButton = m_bAutoCheck = TRUE;
 		break;
 	case BS_DEFPUSHBUTTON:
-		//m_bDefaultButton = TRUE;
+		m_bDefaultButton = TRUE;
 		break;
 	}
 

@@ -13,12 +13,14 @@ public:
 	virtual ~CKofMFCButton();
 
 	void GetTooltip(CString& strTooltip);
+	BOOL IsDefaultButton() const { return  m_bDefaultButton; }
 
 protected:
 	COLORREF m_clrText;
 	BOOL m_bIsLeftText;
 	BOOL m_b3State;
 	BOOL m_bIndeterminate;
+	BOOL m_bDefaultButton;
 
 protected:
 	virtual void DoDrawItem(CDC* pDCPaint, CRect rectClient, UINT itemState);
