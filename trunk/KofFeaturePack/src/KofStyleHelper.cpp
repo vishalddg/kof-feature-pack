@@ -74,8 +74,8 @@ BOOL CKofStyleHelper::SetStyle( UINT nStyle )
 	{
 	case KOF_CMFCVisualManagerOffice2007:
 		{
-			HINSTANCE saveInstance = AfxGetResourceHandle();
-			AfxSetResourceHandle(theInstance);			
+			//HINSTANCE saveInstance = AfxGetResourceHandle();
+			//AfxSetResourceHandle(theInstance);			
 
 			m_clrDlgBackground = afxGlobalData.clrBarLight;
 			UINT nIDPush = 0, nIDRadio = 0, nIDGroup = 0;
@@ -87,19 +87,23 @@ BOOL CKofStyleHelper::SetStyle( UINT nStyle )
 			case CMFCVisualManagerOffice2007::Office2007_LunaBlue:				
 				nIDPush = BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
 				nIDRadio = BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
+				nIDGroup = BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_GROUP;
 				break;
 			case CMFCVisualManagerOffice2007::Office2007_ObsidianBlack:				
 				nIDPush = BLACK_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
 				nIDRadio = BLACK_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
+				nIDGroup = BLACK_IDB_OFFICE2007_RIBBON_BUTTONS_GROUP;
 				break;
 			case CMFCVisualManagerOffice2007::Office2007_Aqua:			
 				nIDPush = AQUA_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
 				nIDRadio = AQUA_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
+				nIDGroup = AQUA_IDB_OFFICE2007_RIBBON_BUTTONS_GROUP;
 				strPushItem = _T("<SIZE>22, 22</SIZE><CORNERS>2, 2, 2, 2</CORNERS>");
 				break;
 			case CMFCVisualManagerOffice2007::Office2007_Silver:				
 				nIDPush = SILVER_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
 				nIDRadio = SILVER_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
+				nIDGroup = SILVER_IDB_OFFICE2007_RIBBON_BUTTONS_GROUP;
 				break;
 			}
 			CKofMFCVisualManagerOffice2007 *pVisualManager = (CKofMFCVisualManagerOffice2007 *)CMFCVisualManager::GetInstance();
@@ -131,7 +135,7 @@ BOOL CKofStyleHelper::SetStyle( UINT nStyle )
 				m_ctrlRibbonBtnGroup.Create(params3);
 			}
 
-			AfxSetResourceHandle(saveInstance);
+			//AfxSetResourceHandle(saveInstance);
 		}
 		break;
 	default:
@@ -671,6 +675,64 @@ void CKofStyleHelper::OnDrawGroup( CDC* pDC, CKofGroup* pGroup, CRect rect, cons
 			pDC->DrawText (strCaption, rectText, dwTextStyle);
 		}
 		return;
+	}
+	ASSERT_VALID (pDC);
+	ASSERT_VALID (pGroup);
+
+	CSize sizeText = pDC->GetTextExtent (strName);
+
+	CRect rectFrame = rect;
+	rectFrame.top += sizeText.cy / 2;
+
+	if (sizeText == CSize (0, 0))
+	{
+		rectFrame.top += pDC->GetTextExtent (_T("A")).cy / 2;
+	}
+
+	int xMargin = sizeText.cy / 2;
+
+	CRect rectText = rect;
+	rectText.left += xMargin;
+	rectText.right = rectText.left + sizeText.cx + xMargin;
+	rectText.bottom = rectText.top + sizeText.cy;
+
+	if (!strName.IsEmpty ())
+	{
+		pDC->ExcludeClipRect (rectText);
+	}
+	CKofMFCVisualManagerOfficeXP *pVisualManager = (CKofMFCVisualManagerOfficeXP *)CMFCVisualManager::GetInstance();
+	if (!pVisualManager)
+	{
+		return;
+	}
+	if (pVisualManager->m_pfDrawThemeBackground != NULL && pVisualManager->m_hThemeButton != NULL && !FALSE)
+	{
+		(*pVisualManager->m_pfDrawThemeBackground) (pVisualManager->m_hThemeButton, pDC->GetSafeHdc(), BP_GROUPBOX, 
+			pGroup->IsWindowEnabled () ? GBS_NORMAL : GBS_DISABLED, &rectFrame, 0);
+	}
+	else
+	{
+		CDrawingManager dm (*pDC);
+		dm.DrawRect (rectFrame, (COLORREF)-1, afxGlobalData.clrBarDkShadow);
+	}
+
+	pDC->SelectClipRgn (NULL);
+
+	if (strName.IsEmpty ())
+	{
+		return;
+	}
+
+	DWORD dwTextStyle = DT_SINGLELINE | DT_VCENTER | DT_CENTER | DT_NOCLIP;
+
+	if (FALSE)
+	{
+		//DrawTextOnGlass (pDC, strName, rectText, dwTextStyle, 10, afxGlobalData.clrBarText);
+	}
+	else
+	{
+		CString strCaption = strName;
+		pDC->DrawText (strCaption, rectText, dwTextStyle);
 	}
 }
 

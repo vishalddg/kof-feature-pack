@@ -41,7 +41,7 @@ DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 		//  result.
 
 		new CDynLinkLibrary(KofPackDLL);
-		theInstance = hInstance;
+		theInstance = KofPackDLL.hModule;
 	}
 	else if (dwReason == DLL_PROCESS_DETACH)
 	{

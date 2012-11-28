@@ -15,3 +15,4 @@
 #include "KofRichEditCtrl.h"
 #include "KofMFCFontComboBox.h"
 #include "KofMFCMaskedEdit.h"
+#include "KofGroup.h"

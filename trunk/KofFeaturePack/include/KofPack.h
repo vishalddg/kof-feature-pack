@@ -1,5 +1,5 @@
 #pragma once
-#include "KofResource.h"
+#include "..\include\KofResource.h"
 
 #if defined _AFXDLL && !defined _KOFPACK_STATIC_
 	#ifdef _KOFPACK_
