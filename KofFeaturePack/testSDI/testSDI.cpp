@@ -172,6 +172,7 @@ public:
 	CKofMFCButton m_BtnChk2;
 	CKofMFCButton m_BtnRad2;
 	CKofMFCButton m_BtnOK;
+	CKofStatic m_StcGroup;
 };
 
 CAboutDlg::CAboutDlg() : CKofDialogEx(CAboutDlg::IDD)
@@ -200,6 +201,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RADIO1, m_BtnRad1);
 	DDX_Control(pDX, IDC_CHECK2, m_BtnChk2);
 	DDX_Control(pDX, IDOK, m_BtnOK);
+	DDX_Control(pDX, IDC_STATIC_GROUP, m_StcGroup);
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CKofDialogEx)

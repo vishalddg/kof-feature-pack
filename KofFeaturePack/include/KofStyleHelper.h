@@ -1,6 +1,7 @@
 #pragma once
 #include "KofPack.h"
 #include "KofMFCButton.h"
+#include "KofGroup.h"
 
 class KOFPACKDLLEXPORT CKofStyleHelper
 {
@@ -32,6 +33,7 @@ public:
 	virtual void OnDrawRibbonComboDropButton(CDC* pDC, CRect rect, BOOL bDisabled, BOOL bIsDropped, BOOL bIsHighlighted);
 	virtual void OnEditContextMenu(CWnd* pWnd, CPoint point);
 	virtual BOOL Draw2007RadioButton(CDC *pDC, CRect rect, BOOL bHighlighted, BOOL bChecked, BOOL bEnabled, BOOL bPressed);
+	virtual void OnDrawGroup(CDC* pDC, CKofGroup* pGroup, CRect rect, const CString& strName);
 
 private:
 	CKofStyleHelper(void);
@@ -42,8 +44,10 @@ private:
 	CBrush m_brDlgBackground;
 	CMFCControlRenderer m_ctrlRibbonBtnPush;
 	CMFCControlRenderer m_ctrlRibbonBtnRadio;
+	CMFCControlRenderer	m_ctrlRibbonBtnGroup;
 	COLORREF m_clrRibbonEditBorder;
 	COLORREF m_clrRibbonEditBorderDisabled;
 	COLORREF m_clrRibbonEditBorderHighlighted;
 	COLORREF m_clrRibbonEditBorderPressed;
+
 };

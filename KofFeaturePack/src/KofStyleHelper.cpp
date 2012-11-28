@@ -78,9 +78,10 @@ BOOL CKofStyleHelper::SetStyle( UINT nStyle )
 			AfxSetResourceHandle(theInstance);			
 
 			m_clrDlgBackground = afxGlobalData.clrBarLight;
-			UINT nIDPush = 0, nIDRadio = 0;
+			UINT nIDPush = 0, nIDRadio = 0, nIDGroup = 0;
 			CString strPushItem = _T("<SIZE>102, 22</SIZE><CORNERS>3, 4, 3, 3</CORNERS>"),
-					strRadioItem = _T("<SIZE>13, 13</SIZE>");
+					strRadioItem = _T("<SIZE>13, 13</SIZE>"),
+					strGroupItem = _T("<SIZE>7, 7</SIZE><CORNERS>3, 3, 3, 3</CORNERS><SIDES>2, 2, 2, 2</SIDES>");
 			switch (style2007)
 			{
 			case CMFCVisualManagerOffice2007::Office2007_LunaBlue:				
@@ -121,6 +122,13 @@ BOOL CKofStyleHelper::SetStyle( UINT nStyle )
 			if (CTagManager::ParseControlRendererInfo(strRadioItem, params2))
 			{
 				m_ctrlRibbonBtnRadio.Create(params2);
+			}
+
+			m_ctrlRibbonBtnGroup.CleanUp();
+			CMFCControlRendererInfo params3(MAKEINTRESOURCE(nIDGroup), CRect(0, 0, 0, 0), CRect(0, 0, 0, 0));
+			if (CTagManager::ParseControlRendererInfo(strGroupItem, params3))
+			{
+				m_ctrlRibbonBtnGroup.Create(params3);
 			}
 
 			AfxSetResourceHandle(saveInstance);
@@ -611,5 +619,58 @@ BOOL CKofStyleHelper::Draw2007RadioButton( CDC *pDC, CRect rect, BOOL bHighlight
 	}
 
 	return TRUE;
+}
+
+void CKofStyleHelper::OnDrawGroup( CDC* pDC, CKofGroup* pGroup, CRect rect, const CString& strName )
+{
+	if (KOF_CMFCVisualManagerOffice2007 == m_Style)
+	{
+		ASSERT_VALID (pDC);
+		ASSERT_VALID (pGroup);
+
+		CSize sizeText = pDC->GetTextExtent (strName);
+
+		CRect rectFrame = rect;
+		rectFrame.top += sizeText.cy / 2;
+
+		if (sizeText == CSize (0, 0))
+		{
+			rectFrame.top += pDC->GetTextExtent (_T("A")).cy / 2;
+		}
+
+		int xMargin = sizeText.cy / 2;
+
+		CRect rectText = rect;
+		rectText.left += xMargin;
+		rectText.right = rectText.left + sizeText.cx + xMargin;
+		rectText.bottom = rectText.top + sizeText.cy;
+
+		if (!strName.IsEmpty ())
+		{
+			pDC->ExcludeClipRect (rectText);
+		}
+
+		m_ctrlRibbonBtnGroup.DrawFrame (pDC, rectFrame);
+
+		pDC->SelectClipRgn (NULL);
+
+		if (strName.IsEmpty ())
+		{
+			return;
+		}
+
+		DWORD dwTextStyle = DT_SINGLELINE | DT_VCENTER | DT_CENTER | DT_NOCLIP;
+
+		if (FALSE)
+		{
+			//DrawTextOnGlass (pDC, strName, rectText, dwTextStyle, 10, afxGlobalData.clrBarText);
+		}
+		else
+		{
+			CString strCaption = strName;
+			pDC->DrawText (strCaption, rectText, dwTextStyle);
+		}
+		return;
+	}
 }
 
