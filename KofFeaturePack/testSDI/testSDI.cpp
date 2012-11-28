@@ -129,6 +129,7 @@ BOOL CtestSDIApp::InitInstance()
 	m_pMainWnd->UpdateWindow();
 	// call DragAcceptFiles only if there's a suffix
 	//  In an SDI app, this should occur after ProcessShellCommand
+
 	return TRUE;
 }
 
@@ -172,7 +173,8 @@ public:
 	CKofMFCButton m_BtnChk2;
 	CKofMFCButton m_BtnRad2;
 	CKofMFCButton m_BtnOK;
-	CKofStatic m_StcGroup;
+	CKofGroup m_StcGroup;
+	CMFCTabCtrl m_TabOne;
 };
 
 CAboutDlg::CAboutDlg() : CKofDialogEx(CAboutDlg::IDD)
@@ -263,6 +265,11 @@ BOOL CAboutDlg::OnInitDialog()
 	m_EdtMask.SetWindowText(_T("(123) 123-1212"));
 
 	m_BtnRad2.SubclassDlgItem(IDC_RADIO2, this);
+
+	CRect rectTabs;
+	GetDlgItem(IDC_STATIC_TAB)->GetWindowRect(rectTabs);
+	ScreenToClient(rectTabs);
+	m_TabOne.Create(CMFCTabCtrl::STYLE_3D, rectTabs, this, 1, CMFCTabCtrl::LOCATION_TOP);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
