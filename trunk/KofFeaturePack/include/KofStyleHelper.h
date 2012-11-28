@@ -1,6 +1,6 @@
 #pragma once
 #include "KofPack.h"
-
+#include "KofMFCButton.h"
 
 class KOFPACKDLLEXPORT CKofStyleHelper
 {
@@ -25,7 +25,7 @@ public:
 	virtual CBrush& GetDlgBackBrush(CWnd* pDlg);
 	virtual CSize GetCheckRadioDefaultSize();
 	virtual void OnDrawRadioButton(CDC *pDC, CRect rect, BOOL bOn, BOOL bHighlighted, BOOL bPressed, BOOL bEnabled);
-	virtual BOOL OnDrawPushButton(CDC* pDC, CRect rect, CMFCButton* pButton, COLORREF& clrText);
+	virtual BOOL OnDrawPushButton(CDC* pDC, CRect rect, CKofMFCButton* pButton, COLORREF& clrText);
 	virtual BOOL IsOwnerDrawDlgSeparator(CWnd* /*pCtrl*/);
 	virtual void OnDrawDlgSeparator(CDC* pDC, CWnd* pCtrl, CRect rect, BOOL bIsHorz);
 	virtual void OnDrawEditBorder(CDC* pDC, CRect rect, BOOL bHighlighted, BOOL bDroppedDowned, BOOL bEnabled);

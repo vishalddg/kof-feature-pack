@@ -9,6 +9,31 @@ class CKofMFCVisualManager : public CMFCVisualManager
 {
 	friend class CKofStyleHelper;
 };
+class CKofMFCVisualManagerOfficeXP : public CMFCVisualManagerOfficeXP
+{
+	friend class CKofStyleHelper;
+};
+class CKofMFCVisualManagerOffice2003 : public CMFCVisualManagerOffice2003
+{
+	friend class CKofStyleHelper;
+};
+class CKofMFCVisualManagerOffice2007 : public CMFCVisualManagerOffice2007
+{
+	friend class CKofStyleHelper;
+};
+class CKofMFCVisualManagerVS2005 : public CMFCVisualManagerVS2005
+{
+	friend class CKofStyleHelper;
+};
+class CKofMFCVisualManagerWindows : public CMFCVisualManagerWindows
+{
+	friend class CKofStyleHelper;
+};
+
+class CKofMFCToolBarComboBoxButton : public CMFCToolBarComboBoxButton
+{
+	friend class CKofStyleHelper;
+};
 
 //////////////////////////////////////////////////////////////////////////
 // CKofStyleHelper
@@ -53,56 +78,47 @@ BOOL CKofStyleHelper::SetStyle( UINT nStyle )
 			AfxSetResourceHandle(theInstance);			
 
 			m_clrDlgBackground = afxGlobalData.clrBarLight;
-			UINT nIDPush = 0;
-			UINT nIDRadio = 0;
+			UINT nIDPush = 0, nIDRadio = 0;
+			CString strPushItem = _T("<SIZE>102, 22</SIZE><CORNERS>3, 4, 3, 3</CORNERS>"),
+					strRadioItem = _T("<SIZE>13, 13</SIZE>");
 			switch (style2007)
 			{
-			case CMFCVisualManagerOffice2007::Office2007_LunaBlue:
-				m_clrDlgBackground = RGB(213, 228, 242);
-				m_clrRibbonEditBorder = RGB(171, 193, 222);
-				m_clrRibbonEditBorderDisabled = RGB(177, 187, 198);
-				m_clrRibbonEditBorderHighlighted = RGB(179, 199, 225);
-				m_clrRibbonEditBorderPressed = RGB(179, 199, 225);
+			case CMFCVisualManagerOffice2007::Office2007_LunaBlue:				
 				nIDPush = BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
 				nIDRadio = BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
 				break;
-			case CMFCVisualManagerOffice2007::Office2007_ObsidianBlack:
-				m_clrRibbonEditBorder = RGB(137, 137, 137);
-				m_clrRibbonEditBorderDisabled = RGB(204, 204, 204);
-				m_clrRibbonEditBorderHighlighted = RGB(137, 137, 137);
-				m_clrRibbonEditBorderPressed = RGB(137, 137, 137);
+			case CMFCVisualManagerOffice2007::Office2007_ObsidianBlack:				
 				nIDPush = BLACK_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
 				nIDRadio = BLACK_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
 				break;
-			case CMFCVisualManagerOffice2007::Office2007_Aqua:
-				m_clrRibbonEditBorder = RGB(177, 187, 198);
-				m_clrRibbonEditBorderDisabled = RGB(177, 187, 198);
-				m_clrRibbonEditBorderHighlighted = RGB(148, 168, 198);
-				m_clrRibbonEditBorderPressed = RGB(148, 168, 198);
+			case CMFCVisualManagerOffice2007::Office2007_Aqua:			
 				nIDPush = AQUA_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
 				nIDRadio = AQUA_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
+				strPushItem = _T("<SIZE>22, 22</SIZE><CORNERS>2, 2, 2, 2</CORNERS>");
 				break;
-			case CMFCVisualManagerOffice2007::Office2007_Silver:
-				m_clrRibbonEditBorder = RGB(169, 177, 184);
-				m_clrRibbonEditBorderDisabled = RGB(177, 187, 198);
-				m_clrRibbonEditBorderHighlighted = RGB(164, 164, 164);
-				m_clrRibbonEditBorderPressed = RGB(164, 164, 164);
+			case CMFCVisualManagerOffice2007::Office2007_Silver:				
 				nIDPush = SILVER_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
 				nIDRadio = SILVER_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
 				break;
 			}
+			CKofMFCVisualManagerOffice2007 *pVisualManager = (CKofMFCVisualManagerOffice2007 *)CMFCVisualManager::GetInstance();
+			if (pVisualManager)
+			{
+				m_clrRibbonEditBorder = pVisualManager->m_clrRibbonEditBorder;
+				m_clrRibbonEditBorderDisabled = pVisualManager->m_clrRibbonEditBorderDisabled;
+				m_clrRibbonEditBorderHighlighted = pVisualManager->m_clrRibbonEditBorderHighlighted;
+				m_clrRibbonEditBorderPressed = pVisualManager->m_clrRibbonEditBorderPressed;
+			}			
 			m_ctrlRibbonBtnPush.CleanUp();
 			CMFCControlRendererInfo params(MAKEINTRESOURCE(nIDPush), CRect(0, 0, 0, 0), CRect(0, 0, 0, 0));
-			CString strItem = _T("<SIZE>102, 22</SIZE><CORNERS>3, 4, 3, 3</CORNERS>");
-			if (CTagManager::ParseControlRendererInfo(strItem, params))
+			if (CTagManager::ParseControlRendererInfo(strPushItem, params))
 			{
 				m_ctrlRibbonBtnPush.Create(params);
 			}
 
 			m_ctrlRibbonBtnRadio.CleanUp();
 			CMFCControlRendererInfo params2(MAKEINTRESOURCE(nIDRadio), CRect(0, 0, 0, 0), CRect(0, 0, 0, 0));
-			strItem = _T("<SIZE>13, 13</SIZE>");
-			if (CTagManager::ParseControlRendererInfo(strItem, params2))
+			if (CTagManager::ParseControlRendererInfo(strRadioItem, params2))
 			{
 				m_ctrlRibbonBtnRadio.Create(params2);
 			}
@@ -145,6 +161,7 @@ CSize CKofStyleHelper::GetCheckRadioDefaultSize()
 	{
 		return CSize (15, 15);
 	}
+
 	return CSize (::GetSystemMetrics (SM_CXMENUCHECK) + 1, ::GetSystemMetrics (SM_CYMENUCHECK) + 1);
 }
 
@@ -185,66 +202,160 @@ void CKofStyleHelper::OnDrawRadioButton( CDC *pDC, CRect rect, BOOL bOn, BOOL bH
 	}
 }
 
-BOOL CKofStyleHelper::OnDrawPushButton( CDC* pDC, CRect rect, CMFCButton* pButton, COLORREF& clrText )
+BOOL CKofStyleHelper::OnDrawPushButton( CDC* pDC, CRect rect, CKofMFCButton* pButton, COLORREF& clrText )
 {
-	ASSERT_VALID (pDC);
-	ASSERT_VALID (pButton);
-
-	int index = 0;
-
-	BOOL bDisabled    = !pButton->IsWindowEnabled ();
-	BOOL bFocused     = pButton->GetSafeHwnd () == ::GetFocus ();
-	BOOL bDefault     = FALSE;// pButton->IsDefaultButton ();
-	BOOL bPressed     = pButton->IsPressed ();
-	BOOL bChecked     = pButton->IsChecked ();
-	BOOL bHighlighted = pButton->IsHighlighted ();
-
-	bHighlighted |= bFocused;
-
-	if (bDisabled)
+	switch (m_Style)
 	{
-		index = 6;
-	}
-	else
-	{
-		if (bChecked)
+	case KOF_CMFCVisualManagerWindows:
+	case KOF_CMFCVisualManagerOffice2003:
+	case KOF_CMFCVisualManagerVS2005:
 		{
-			index = 3;
-		}
-		else
-		{
-			if (bDefault && !bHighlighted)
+			CKofMFCVisualManagerOfficeXP *pVisualManager = (CKofMFCVisualManagerOfficeXP *)CMFCVisualManager::GetInstance();
+			if (!pVisualManager)
 			{
-				index = 5;
+				break;
 			}
-		}
+			ASSERT_VALID (pDC);
+			ASSERT_VALID (pButton);
 
-		if (bPressed)
-		{
-			if (bHighlighted)
+			CDrawingManager dm (*pDC);
+
+			COLORREF clrFace = afxGlobalData.clrBarFace;
+
+			if (!pButton->IsWindowEnabled ())
 			{
-				index = 2;
+				if (FALSE)
+				{
+					dm.DrawRect (rect, clrFace, afxGlobalData.clrBarShadow);
+				}
+				else
+				{
+					pDC->FillRect (rect, &afxGlobalData.brBarFace);
+					pDC->Draw3dRect (rect, afxGlobalData.clrBarShadow, afxGlobalData.clrBarShadow);
+				}
 			}
+			else if (pButton->IsPressed () || pButton->GetCheck ())
+			{
+				pVisualManager->OnFillHighlightedArea (pDC, rect, &pVisualManager->m_brHighlightDn, NULL);
+
+				if (FALSE)
+				{
+					dm.DrawRect (rect, (COLORREF)-1, pVisualManager->m_clrMenuItemBorder);
+				}
+				else
+				{
+					pDC->Draw3dRect (rect, pVisualManager->m_clrMenuItemBorder, pVisualManager->m_clrMenuItemBorder);
+				}
+
+				clrFace = pVisualManager->m_clrHighlightDn;
+			}
+			else if (pButton->IsHighlighted () || CWnd::GetFocus () == pButton)
+			{
+				pVisualManager->OnFillHighlightedArea (pDC, rect, &pVisualManager->m_brHighlight, NULL);
+
+				if (FALSE)
+				{
+					dm.DrawRect (rect, (COLORREF)-1, pVisualManager->m_clrMenuItemBorder);
+				}
+				else
+				{
+					pDC->Draw3dRect (rect, pVisualManager->m_clrMenuItemBorder, pVisualManager->m_clrMenuItemBorder);
+				}
+
+				clrFace = pVisualManager->m_clrHighlight;
+			}
+			else
+			{
+				if (FALSE)
+				{
+					dm.DrawRect (rect, clrFace, afxGlobalData.clrBarDkShadow);
+				}
+				else
+				{
+					pDC->FillRect (rect, &afxGlobalData.brBarFace);
+					pDC->Draw3dRect (rect, afxGlobalData.clrBarDkShadow, afxGlobalData.clrBarDkShadow);
+				}
+			}
+
+			if (GetRValue (clrFace) <= 128 ||
+				GetGValue (clrFace) <= 128 ||
+				GetBValue (clrFace) <= 128)
+			{
+				clrText = RGB (255, 255, 255);
+			}
+
+			return TRUE;
 		}
-		else if (bHighlighted)
+		break;
+	case KOF_CMFCVisualManagerOffice2007:
 		{
-			index++;
+			ASSERT_VALID (pDC);
+			ASSERT_VALID (pButton);
+
+			int index = 0;
+
+			BOOL bDisabled    = !pButton->IsWindowEnabled ();
+			BOOL bFocused     = pButton->GetSafeHwnd () == ::GetFocus ();
+			BOOL bDefault     = pButton->IsDefaultButton ();
+			BOOL bPressed     = pButton->IsPressed ();
+			BOOL bChecked     = pButton->IsChecked ();
+			BOOL bHighlighted = pButton->IsHighlighted ();
+
+			bHighlighted |= bFocused;
+
+			if (bDisabled)
+			{
+				index = 6;
+			}
+			else
+			{
+				if (bChecked)
+				{
+					index = 3;
+				}
+				else
+				{
+					if (bDefault && !bHighlighted)
+					{
+						index = 5;
+					}
+				}
+
+				if (bPressed)
+				{
+					if (bHighlighted)
+					{
+						index = 2;
+					}
+				}
+				else if (bHighlighted)
+				{
+					index++;
+				}
+			}
+
+			afxGlobalData.DrawParentBackground (pButton, pDC);
+			m_ctrlRibbonBtnPush.Draw (pDC, rect, index);
+
+			CKofMFCVisualManagerOffice2007 *pVisualManager = (CKofMFCVisualManagerOffice2007 *)CMFCVisualManager::GetInstance();
+			if (!pVisualManager)
+			{
+				return TRUE;
+			}
+			if (bDisabled)
+			{
+				clrText = pVisualManager->m_clrToolBarBtnTextDisabled;
+			}
+			else if (bHighlighted)
+			{
+				clrText = pVisualManager->m_clrToolBarBtnTextHighlighted;
+			}
+
+			return TRUE;
 		}
+		break;
 	}
-
-	afxGlobalData.DrawParentBackground (pButton, pDC);
-	m_ctrlRibbonBtnPush.Draw (pDC, rect, index);
-
-	if (bDisabled)
-	{
-		clrText = RGB(141, 141, 141);//m_clrToolBarBtnTextDisabled;
-	}
-	else if (bHighlighted)
-	{
-		clrText = RGB(0, 21, 110);//m_clrToolBarBtnTextHighlighted;
-	}
-
-	return TRUE;
+	return FALSE;
 }
 
 BOOL CKofStyleHelper::IsOwnerDrawDlgSeparator( CWnd* /*pCtrl*/ )
@@ -324,11 +435,6 @@ void CKofStyleHelper::OnDrawEditBorder( CDC* pDC, CRect rect, BOOL bHighlighted,
 
 	pDC->Draw3dRect(rect, colorBorder, colorBorder);
 }
-
-class CKofMFCToolBarComboBoxButton : public CMFCToolBarComboBoxButton
-{
-	friend class CKofStyleHelper;
-};
 
 void CKofStyleHelper::OnDrawRibbonComboDropButton( CDC* pDC, CRect rect, BOOL bDisabled, BOOL bIsDropped, BOOL bIsHighlighted )
 {
@@ -506,3 +612,4 @@ BOOL CKofStyleHelper::Draw2007RadioButton( CDC *pDC, CRect rect, BOOL bHighlight
 
 	return TRUE;
 }
+

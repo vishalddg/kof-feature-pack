@@ -24,6 +24,7 @@
 #include "afxcmn.h"
 #include "afxcolorbutton.h"
 #include "afxtagmanager.h"
+#include "kofmfcbutton.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -170,6 +171,7 @@ public:
 	CKofMFCButton m_BtnRad1;
 	CKofMFCButton m_BtnChk2;
 	CKofMFCButton m_BtnRad2;
+	CKofMFCButton m_BtnOK;
 };
 
 CAboutDlg::CAboutDlg() : CKofDialogEx(CAboutDlg::IDD)
@@ -197,6 +199,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CHECK1, m_BtnChk1);
 	DDX_Control(pDX, IDC_RADIO1, m_BtnRad1);
 	DDX_Control(pDX, IDC_CHECK2, m_BtnChk2);
+	DDX_Control(pDX, IDOK, m_BtnOK);
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CKofDialogEx)
