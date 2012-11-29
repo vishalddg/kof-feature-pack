@@ -24,7 +24,7 @@
 #include "afxcmn.h"
 #include "afxcolorbutton.h"
 #include "afxtagmanager.h"
-#include "kofmfcbutton.h"
+#include "Sheet.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -171,10 +171,14 @@ public:
 	CKofMFCButton m_BtnChk1;
 	CKofMFCButton m_BtnRad1;
 	CKofMFCButton m_BtnChk2;
-	CKofMFCButton m_BtnRad2;
+	//CKofMFCButton m_BtnRad2;
 	CKofMFCButton m_BtnOK;
 	CKofGroup m_StcGroup;
-	CMFCTabCtrl m_TabOne;
+	CKofMFCTabCtrl m_TabOne;
+	CEdit		m_wnd1;
+	CEdit		m_wnd2;
+	CEdit		m_wnd3;
+	afx_msg void OnBnClickedButton1();
 };
 
 CAboutDlg::CAboutDlg() : CKofDialogEx(CAboutDlg::IDD)
@@ -207,6 +211,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CKofDialogEx)
+	ON_BN_CLICKED(IDC_BUTTON1, &CAboutDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 // App command to run the dialog
@@ -264,13 +269,41 @@ BOOL CAboutDlg::OnInitDialog()
 	m_EdtMask.SetValidChars(NULL); // Valid string characters
 	m_EdtMask.SetWindowText(_T("(123) 123-1212"));
 
-	m_BtnRad2.SubclassDlgItem(IDC_RADIO2, this);
+	//m_BtnRad2.SubclassDlgItem(IDC_RADIO2, this);
 
 	CRect rectTabs;
 	GetDlgItem(IDC_STATIC_TAB)->GetWindowRect(rectTabs);
 	ScreenToClient(rectTabs);
 	m_TabOne.Create(CMFCTabCtrl::STYLE_3D, rectTabs, this, 1, CMFCTabCtrl::LOCATION_TOP);
+	m_TabOne.SetImageList (IDB_BITMAP1, 16, RGB (255, 0, 255));
+//	m_TabOne.SetTabMaxWidth()
 
+	m_wnd1.Create (WS_CHILD | WS_VISIBLE, CRect (0, 0, 0, 0), &m_TabOne, 1);
+	m_wnd1.SetFont (&afxGlobalData.fontRegular);
+	m_wnd1.SetWindowText (_T("Edit 1"));
+
+	m_wnd2.Create (WS_CHILD | WS_VISIBLE, CRect (0, 0, 0, 0), &m_TabOne, 2);
+	m_wnd2.SetFont (&afxGlobalData.fontRegular);
+	m_wnd2.SetWindowText (_T("Edit 2"));
+
+	m_wnd3.Create (WS_CHILD | WS_VISIBLE, CRect (0, 0, 0, 0), &m_TabOne, 3);
+	m_wnd3.SetFont (&afxGlobalData.fontRegular);
+	m_wnd3.SetWindowText (_T("Edit 3"));
+
+	m_TabOne.AddTab (&m_wnd1, _T("One  "), 0, FALSE);
+	m_TabOne.AddTab (&m_wnd2, _T("Two  "), 1, FALSE);
+	m_TabOne.AddTab (&m_wnd3, _T("Three  "), 2, FALSE);
+
+	m_TabOne.ModifyTabStyle(CMFCTabCtrl::STYLE_3D_VS2005);
+	m_TabOne.RecalcLayout ();
+	m_TabOne.RedrawWindow ();
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+void CAboutDlg::OnBnClickedButton1()
+{
+	CSheet a;
+	a.SetTitle(_T("属性页"));
+	a.DoModal();
 }

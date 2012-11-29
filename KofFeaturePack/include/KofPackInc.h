@@ -16,3 +16,6 @@
 #include "KofMFCFontComboBox.h"
 #include "KofMFCMaskedEdit.h"
 #include "KofGroup.h"
+#include "KofMFCTabCtrl.h"
+#include "KofMFCPropertySheet.h"
+#include "KofMFCPropertyPage.h"

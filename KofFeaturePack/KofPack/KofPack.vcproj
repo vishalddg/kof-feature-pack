@@ -335,7 +335,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\KofMFCPropertyPage.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCPropertySheet.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\KofMFCSpinButtonCtrl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCTabCtrl.cpp"
 				>
 			</File>
 			<File
@@ -437,7 +449,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\KofMFCPropertyPage.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCPropertySheet.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\KofMFCSpinButtonCtrl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCTabCtrl.h"
 				>
 			</File>
 			<File
