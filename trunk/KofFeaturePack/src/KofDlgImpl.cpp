@@ -2,6 +2,12 @@
 #include "..\include\KofDlgImpl.h"
 #include "..\include\KofDialogEx.h"
 #include "..\include\KofStyleHelper.h"
+#include "..\include\KofStatic.h"
+#include "..\include\KofMFCButton.h"
+#include "..\include\KofComboBox.h"
+#include "..\include\KofMFCSpinButtonCtrl.h"
+#include "..\include\KofMFCEdit.h"
+#include "..\include\KofProgressCtrl.h"
 
 CKofDlgImpl::CKofDlgImpl(CWnd& dlg)
 :m_Dlg(dlg),
@@ -368,6 +374,84 @@ void CKofDlgImpl::EnableVisualManagerStyle( BOOL bEnable, BOOL bNCArea /*= FALSE
 	if (m_Dlg.GetSafeHwnd () == NULL)
 	{
 		return;
+	}
+
+	CWnd* pWndChild = m_Dlg.GetWindow (GW_CHILD);
+
+	while (pWndChild != NULL)
+	{
+		ASSERT_VALID (pWndChild);
+
+		if (plstNonSubclassedItems != NULL && plstNonSubclassedItems->Find (pWndChild->GetDlgCtrlID ()) != NULL)
+		{
+			pWndChild = pWndChild->GetNextWindow ();
+			continue;
+		}
+
+		if (bEnable &&
+			CWnd::FromHandlePermanent (pWndChild->GetSafeHwnd ()) == NULL)
+		{
+#define MAX_CLASS_NAME		255
+#define STATIC_CLASS		_T("Static")
+#define BUTTON_CLASS		_T("Button")
+#define EDIT_CLASS			_T("Edit")
+#define	COMBOBOX_CLASS		_T("ComboBox")
+#define SCROLLBAR_CLASS		_T("ScrollBar")
+
+			TCHAR lpszClassName [MAX_CLASS_NAME + 1];
+
+			::GetClassName (pWndChild->GetSafeHwnd (), lpszClassName, MAX_CLASS_NAME);
+			CString strClass = lpszClassName;
+
+			CWnd* pWndSubclassedCtrl = NULL;
+
+			if (strClass == STATIC_CLASS)
+			{
+				pWndSubclassedCtrl = new CKofStatic;
+			}
+			else if (strClass == BUTTON_CLASS)
+			{
+				if ((pWndChild->GetStyle () & 0xF) == BS_GROUPBOX)
+				{
+					pWndSubclassedCtrl = new CKofGroup;
+				}
+				else
+				{
+					pWndSubclassedCtrl = new CKofMFCButton;
+				}
+			}
+			else if (strClass == PROGRESS_CLASS)
+			{
+				pWndSubclassedCtrl = new CKofProgressCtrl;
+			}
+			else if (strClass == TRACKBAR_CLASS)
+			{
+				//pWndSubclassedCtrl = new CBCGPSliderCtrl;
+			}
+			else if (strClass == EDIT_CLASS)
+			{
+				pWndSubclassedCtrl = new CKofMFCEdit;
+			}
+			else if (strClass == COMBOBOX_CLASS)
+			{
+				pWndSubclassedCtrl = new CKofComboBox;
+			}
+			else if (strClass == SCROLLBAR_CLASS)
+			{
+				//pWndSubclassedCtrl = new CBCGPScrollBar;
+			}
+			else if (strClass == UPDOWN_CLASS)
+			{
+				pWndSubclassedCtrl = new CKofMFCSpinButtonCtrl;
+			}
+
+			if (pWndSubclassedCtrl != NULL)
+			{
+				m_arSubclassedCtrls.Add (pWndSubclassedCtrl);
+				pWndSubclassedCtrl->SubclassWindow (pWndChild->GetSafeHwnd ());
+			}
+		}
+		pWndChild = pWndChild->GetNextWindow ();
 	}
 	OnChangeVisualManager ();
 
@@ -821,4 +905,14 @@ BOOL CKofDlgImpl::PreTranslateMessage( MSG* pMsg )
 	}
 
 	return FALSE;
+}
+
+void CKofDlgImpl::OnDestroy()
+{
+	for (int i = 0; i < m_arSubclassedCtrls.GetSize(); i++)
+	{
+		delete m_arSubclassedCtrls [i];
+	}
+
+	m_arSubclassedCtrls.RemoveAll();
 }

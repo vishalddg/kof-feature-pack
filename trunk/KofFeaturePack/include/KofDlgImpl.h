@@ -4,6 +4,8 @@
 class KOFPACKDLLEXPORT CKofDlgImpl
 {
 	friend class CKofDialogEx;
+	friend class CKofMFCPropertySheet;
+	friend class CKofMFCPropertyPage;
 
 public:
 	CKofDlgImpl(CWnd& dlg);
@@ -38,6 +40,7 @@ protected:
 	BOOL OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
 	HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	BOOL PreTranslateMessage(MSG* pMsg);
+	void OnDestroy();
 
 	CWnd& m_Dlg;
 	CObList m_lstCaptionSysButtons;
@@ -49,5 +52,5 @@ protected:
 	BOOL m_bHasBorder;
 	CRect m_rectResizeBox;
 	BOOL m_bVisualManagerNCArea;
-
+	CArray<CWnd*, CWnd*>	m_arSubclassedCtrls;
 };

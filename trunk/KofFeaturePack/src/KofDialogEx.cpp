@@ -50,6 +50,7 @@ BEGIN_MESSAGE_MAP(CKofDialogEx, CDialogEx)
 	ON_WM_ERASEBKGND()
 	ON_WM_CTLCOLOR()
 	ON_REGISTERED_MESSAGE(AFX_WM_CHANGEVISUALMANAGER, OnChangeVisualManager)
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 void CKofDialogEx::OnNcPaint()
@@ -307,4 +308,10 @@ BOOL CKofDialogEx::PreTranslateMessage(MSG* pMsg)
 		return m_KImpl.PreTranslateMessage(pMsg);
 	}
 	return bRes;
+}
+
+void CKofDialogEx::OnDestroy()
+{
+	m_KImpl.OnDestroy();
+	CDialogEx::OnDestroy();
 }

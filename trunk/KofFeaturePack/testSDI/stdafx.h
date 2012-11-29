@@ -48,6 +48,7 @@
 #include <afxcontrolbars.h>     // MFC support for ribbons and control bars
 
 #include "KofPackInc.h"
+#include <afxdlgs.h>
 
 
 

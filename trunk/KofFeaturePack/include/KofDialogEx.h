@@ -2,6 +2,7 @@
 #include "KofDlgImpl.h"
 #include "KofPack.h"
 
+//////////////////////////////////////////////////////////////////////////
 // CKofDialogEx
 
 class KOFPACKDLLEXPORT CKofDialogEx : public CDialogEx
@@ -20,8 +21,6 @@ protected:
 	CKofDlgImpl m_KImpl;
 
 protected:
-	DECLARE_MESSAGE_MAP()
-public:
 	afx_msg void OnNcPaint();
 	afx_msg void OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized);
 	afx_msg BOOL OnNcActivate(BOOL bActive);
@@ -41,6 +40,8 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg LRESULT OnChangeVisualManager(WPARAM, LPARAM);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	afx_msg void OnDestroy();
+	DECLARE_MESSAGE_MAP()
 };
 
 

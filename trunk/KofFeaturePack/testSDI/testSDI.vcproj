@@ -279,6 +279,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Page.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sheet.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -329,7 +337,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Page.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sheet.h"
 				>
 			</File>
 			<File
@@ -368,6 +384,10 @@
 			</File>
 			<File
 				RelativePath=".\res\filesmall.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\icons.bmp"
 				>
 			</File>
 			<File
