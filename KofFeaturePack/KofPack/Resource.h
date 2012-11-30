@@ -2,7 +2,6 @@
 // Microsoft Visual C++ generated include file.
 // Used by KofPack.rc
 //
-#define ww                              1007
 
 // Next default values for new objects
 // 

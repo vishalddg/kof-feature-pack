@@ -7,8 +7,6 @@
 //////////////////////////////////////////////////////////////////////////
 // CKofMFCEdit
 
-//IMPLEMENT_DYNAMIC(CKofMFCEdit, CMFCEditBrowseCtrl)
-
 CKofMFCEdit::CKofMFCEdit()
 {
 	m_bIsNeedBorder = TRUE;

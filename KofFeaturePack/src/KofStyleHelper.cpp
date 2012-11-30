@@ -484,23 +484,23 @@ void CKofStyleHelper::OnEditContextMenu( CWnd* pWnd, CPoint point )
 	CMenu menu;
 	menu.CreatePopupMenu ();
 
-	AfxLoadString (ID_EDIT_CUT, szFullText);
+	AfxLoadString (ID_EDIT_CUT, szFullText);	
 	AfxExtractSubString (strItem, szFullText, 1, '\n');
-	menu.AppendMenu (MF_STRING, idCut, strItem);
+	menu.AppendMenu (MF_STRING, idCut, strItem.IsEmpty() ? _T("¼ôÇÐ") : strItem);
 
 	AfxLoadString (ID_EDIT_COPY, szFullText);
 	AfxExtractSubString (strItem, szFullText, 1, '\n');
-	menu.AppendMenu (MF_STRING, idCopy, strItem);
+	menu.AppendMenu (MF_STRING, idCopy, strItem.IsEmpty() ? _T("¸´ÖÆ") : strItem);
 
 	AfxLoadString (ID_EDIT_PASTE, szFullText);
 	AfxExtractSubString (strItem, szFullText, 1, '\n');
-	menu.AppendMenu (MF_STRING, idPaste, strItem);
+	menu.AppendMenu (MF_STRING, idPaste, strItem.IsEmpty() ? _T("Õ³Ìù") : strItem);
 
 	menu.AppendMenu (MF_SEPARATOR);
 
 	AfxLoadString (ID_EDIT_SELECT_ALL, szFullText);
 	AfxExtractSubString (strItem, szFullText, 1, '\n');
-	menu.AppendMenu (MF_STRING, idSelectAll, strItem);
+	menu.AppendMenu (MF_STRING, idSelectAll, strItem.IsEmpty() ? _T("È«Ñ¡") : strItem);
 
 #ifdef _UNICODE
 	#define _TCF_TEXT	CF_UNICODETEXT
