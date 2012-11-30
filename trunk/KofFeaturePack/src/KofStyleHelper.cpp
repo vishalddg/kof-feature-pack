@@ -1,6 +1,8 @@
 #include "StdAfx.h"
 #include "..\include\KofStyleHelper.h"
 #include "..\include\KofResource.h"
+#include "..\include\KofDialogEx.h"
+#include "..\include\KofMFCPropertySheet.h"
 #include "afxtagmanager.h"
 
 extern HINSTANCE theInstance;
@@ -46,6 +48,7 @@ CKofStyleHelper::CKofStyleHelper(void)
 	m_clrRibbonEditBorderDisabled = (COLORREF)-1;
 	m_clrRibbonEditBorderHighlighted = (COLORREF)-1;
 	m_clrRibbonEditBorderPressed = (COLORREF)-1;
+	m_bDlgCaptionCenter = FALSE;
 }
 
 CKofStyleHelper::~CKofStyleHelper(void)
@@ -84,7 +87,8 @@ BOOL CKofStyleHelper::SetStyle( UINT nStyle )
 					strGroupItem = _T("<SIZE>7, 7</SIZE><CORNERS>3, 3, 3, 3</CORNERS><SIDES>2, 2, 2, 2</SIDES>");
 			switch (style2007)
 			{
-			case CMFCVisualManagerOffice2007::Office2007_LunaBlue:				
+			case CMFCVisualManagerOffice2007::Office2007_LunaBlue:	
+				m_clrDlgBackground = RGB(213, 228, 242);
 				nIDPush = BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_PUSH;
 				nIDRadio = BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_RADIO;
 				nIDGroup = BLUE_IDB_OFFICE2007_RIBBON_BUTTONS_GROUP;
@@ -734,5 +738,390 @@ void CKofStyleHelper::OnDrawGroup( CDC* pDC, CKofGroup* pGroup, CRect rect, cons
 		CString strCaption = strName;
 		pDC->DrawText (strCaption, rectText, dwTextStyle);
 	}
+}
+
+BOOL CKofStyleHelper::OnNcPaint( CWnd* pWnd, const CObList& lstSysButtons, CRect rectRedraw )
+{
+	if (KOF_CMFCVisualManagerOffice2007 != m_Style)
+	{
+		return CMFCVisualManager::GetInstance()->OnNcPaint(pWnd, lstSysButtons, rectRedraw);
+	}
+	CKofMFCVisualManagerOffice2007 *pVisualManager = (CKofMFCVisualManagerOffice2007 *)CMFCVisualManager::GetInstance();
+	if (!pVisualManager)
+	{
+		return CMFCVisualManager::GetInstance()->OnNcPaint(pWnd, lstSysButtons, rectRedraw);
+	}
+	ASSERT_VALID(pWnd);
+
+	if (pWnd->GetSafeHwnd() == NULL)
+	{
+		return FALSE;
+	}
+
+	CWindowDC dc(pWnd);
+
+	if (dc.GetSafeHdc() != NULL)
+	{
+		CRgn rgn;
+		if (!rectRedraw.IsRectEmpty())
+		{
+			rgn.CreateRectRgnIndirect(rectRedraw);
+			dc.SelectClipRgn(&rgn);
+		}
+
+
+		CMFCRibbonBar* pBar = pVisualManager->GetRibbonBar(pWnd);
+		BOOL bRibbonCaption  = pBar != NULL && pBar->IsWindowVisible() && pBar->IsReplaceFrameCaption();
+
+		CRect rtWindow;
+		pWnd->GetWindowRect(rtWindow);
+		pWnd->ScreenToClient(rtWindow);
+
+		CRect rtClient;
+		pWnd->GetClientRect(rtClient);
+
+		rtClient.OffsetRect(-rtWindow.TopLeft());
+		dc.ExcludeClipRect(rtClient);
+
+		rtWindow.OffsetRect(-rtWindow.TopLeft());
+
+		BOOL bActive = pVisualManager->IsWindowActive(pWnd);
+
+		// Modify bActive (if currently TRUE) for owner-drawn MDI child windows: draw child
+		// frame active only if window is active MDI child and the MDI frame window is active.
+		if (bActive && pVisualManager->IsOwnerDrawCaption() && pWnd->IsKindOf(RUNTIME_CLASS(CMDIChildWnd)))
+		{
+			CMDIFrameWnd *pParent = ((CMDIChildWnd *)pWnd)->GetMDIFrame();
+			if (pParent)
+			{
+				CMDIChildWnd *pActiveChild = pParent->MDIGetActive(NULL);
+				if (pActiveChild)
+				{
+					bActive = ((pActiveChild->GetSafeHwnd() == pWnd->GetSafeHwnd()) && pVisualManager->IsWindowActive(pParent));
+				}
+			}
+		}
+
+		CRect rectCaption(rtWindow);
+		CSize szSysBorder(pVisualManager->GetSystemBorders(bRibbonCaption));
+
+		BOOL bDialog = pWnd->IsKindOf (RUNTIME_CLASS (CKofDialogEx)) || pWnd->IsKindOf (RUNTIME_CLASS (CKofMFCPropertySheet));
+		if (bDialog && (pWnd->GetStyle () & WS_THICKFRAME) == 0)
+		{
+			szSysBorder.cy = ::GetSystemMetrics (SM_CYFIXEDFRAME);
+		}
+
+		rectCaption.bottom = rectCaption.top + szSysBorder.cy;
+
+		const DWORD dwStyle = pWnd->GetStyle();
+		BOOL bMaximized = (dwStyle & WS_MAXIMIZE) == WS_MAXIMIZE;
+
+		if (!bRibbonCaption)
+		{
+			const int nSysCaptionHeight = ::GetSystemMetrics(SM_CYCAPTION);
+			rectCaption.bottom += nSysCaptionHeight;
+
+			const DWORD dwStyleEx = pWnd->GetExStyle();
+
+			HICON hIcon = pWnd->GetIcon(FALSE);
+
+			if (hIcon == NULL)
+			{
+				hIcon = pWnd->GetIcon(TRUE);
+
+				if (hIcon != NULL)
+				{
+					CImageList il;
+					il.Create(16, 16, ILC_COLOR32 | ILC_MASK, 0, 1);
+					il.Add(hIcon);
+
+					if (il.GetImageCount() == 1)
+					{
+						hIcon = il.ExtractIcon(0);
+					}
+				}
+			}
+
+			if (hIcon == NULL)
+			{
+				hIcon = (HICON)(LONG_PTR)::GetClassLongPtr(pWnd->GetSafeHwnd(), GCLP_HICONSM);
+			}
+
+			if (hIcon == NULL)
+			{
+				hIcon = (HICON)(LONG_PTR)::GetClassLongPtr(pWnd->GetSafeHwnd(), GCLP_HICON);
+			}
+
+			CString strText;
+			pWnd->GetWindowText(strText);
+
+			CString strTitle(strText);
+			CString strDocument;
+
+			BOOL bPrefix = FALSE;
+			if ((dwStyle & FWS_ADDTOTITLE) == FWS_ADDTOTITLE)
+			{
+				bPrefix = (dwStyle & FWS_PREFIXTITLE) == FWS_PREFIXTITLE;
+				CFrameWnd* pFrameWnd = DYNAMIC_DOWNCAST(CFrameWnd, pWnd);
+
+				if (pFrameWnd != NULL)
+				{
+					strTitle = pFrameWnd->GetTitle();
+
+					if (!strTitle.IsEmpty())
+					{
+						int pos = strText.Find(strTitle);
+
+						if (pos != -1)
+						{
+							if (strText.GetLength() > strTitle.GetLength())
+							{
+								if (pos == 0)
+								{
+									bPrefix = FALSE; // avoid exception
+									strTitle = strText.Left(strTitle.GetLength() + 3);
+									strDocument = strText.Right(strText.GetLength() - strTitle.GetLength());
+								}
+								else
+								{
+									strTitle = strText.Right(strTitle.GetLength() + 3);
+									strDocument = strText.Left(strText.GetLength() - strTitle.GetLength());
+								}
+							}
+						}
+					}
+					else
+					{
+						strDocument = strText;
+					}
+				}
+			}
+
+			if (bMaximized)
+			{
+				rectCaption.InflateRect(szSysBorder.cx, szSysBorder.cy, szSysBorder.cx, 0);
+			}
+
+			if (m_bDlgCaptionCenter)
+			{
+				pVisualManager->DrawNcCaption(&dc, rectCaption, dwStyle, dwStyleEx, strTitle, strDocument, hIcon, bPrefix, bActive, pVisualManager->m_bNcTextCenter, lstSysButtons);
+			} 
+			else
+			{
+				pVisualManager->DrawNcCaption(&dc, rectCaption, dwStyle, dwStyleEx, strTitle, strDocument, hIcon, bPrefix, bActive, FALSE, lstSysButtons);
+			}
+
+			if (hIcon)
+			{
+				DestroyIcon(hIcon);
+			}
+			if (bMaximized)
+			{
+				return TRUE;
+			}
+		}
+
+		else
+		{
+			if (bMaximized)
+			{
+				return TRUE;
+			}
+
+			rectCaption.bottom += pBar->GetCaptionHeight();
+
+			CRect rectBorder(pVisualManager->m_ctrlMainBorderCaption.GetParams().m_rectSides);
+
+			if (pVisualManager->IsBeta())
+			{
+				COLORREF clr1  = bActive ? pVisualManager->m_clrAppCaptionActiveStart : pVisualManager->m_clrAppCaptionInactiveStart;
+				COLORREF clr2  = bActive ? pVisualManager->m_clrAppCaptionActiveFinish : pVisualManager->m_clrAppCaptionInactiveFinish;
+
+				CRect rectCaption2(rectCaption);
+				rectCaption2.DeflateRect(rectBorder.left, rectBorder.top, rectBorder.right, rectBorder.bottom);
+
+				{
+					CDrawingManager dm(dc);
+					dm.Fill4ColorsGradient(rectCaption2, clr1, clr2, clr2, clr1, FALSE);
+				}
+
+				pVisualManager->m_ctrlMainBorderCaption.DrawFrame(&dc, rectCaption, bActive ? 0 : 1);
+			}
+			else
+			{
+				pVisualManager->m_ctrlMainBorderCaption.Draw(&dc, rectCaption, bActive ? 0 : 1);
+			}
+		}
+
+		rtWindow.top = rectCaption.bottom;
+		dc.ExcludeClipRect(rectCaption);
+
+		if (pWnd->IsKindOf(RUNTIME_CLASS(CMDIChildWnd)) || bDialog)
+		{
+			if (bDialog)
+			{
+				CRect rtDialog (rtWindow);
+				rtDialog.DeflateRect (1, 0, 1, 1);
+				dc.FillRect (rtDialog, &GetDlgBackBrush (pWnd));
+
+				dc.ExcludeClipRect (rtDialog);
+			}
+			pVisualManager->m_ctrlMDIChildBorder.DrawFrame(&dc, rtWindow, bActive ? 0 : 1);
+		}
+		else
+		{
+			pVisualManager->m_ctrlMainBorder.DrawFrame(&dc, rtWindow, bActive ? 0 : 1);
+		}
+		if (bDialog)
+		{
+			dc.SelectClipRgn (NULL);
+			return TRUE;
+		}
+
+		//-------------------------------
+		// Find status bar extended area:
+		//-------------------------------
+		CRect rectExt(0, 0, 0, 0);
+		BOOL bExtended    = FALSE;
+		BOOL bBottomFrame = FALSE;
+		BOOL bIsStatusBar = FALSE;
+
+		CWnd* pStatusBar = pWnd->GetDescendantWindow(AFX_IDW_STATUS_BAR, TRUE);
+
+		if (pStatusBar->GetSafeHwnd() != NULL && pStatusBar->IsWindowVisible())
+		{
+			CMFCStatusBar* pClassicStatusBar = DYNAMIC_DOWNCAST(CMFCStatusBar, pStatusBar);
+			if (pClassicStatusBar != NULL)
+			{
+				bExtended = pClassicStatusBar->GetExtendedArea(rectExt);
+				bIsStatusBar = TRUE;
+			}
+
+			else
+			{
+				CMFCRibbonStatusBar* pRibbonStatusBar = DYNAMIC_DOWNCAST(CMFCRibbonStatusBar, pStatusBar);
+				if (pRibbonStatusBar != NULL)
+				{
+					bExtended    = pRibbonStatusBar->GetExtendedArea(rectExt);
+					bBottomFrame = pRibbonStatusBar->IsBottomFrame();
+					bIsStatusBar = TRUE;
+				}
+			}
+
+		}
+
+		if (bIsStatusBar)
+		{
+			CRect rectStatus;
+			pStatusBar->GetClientRect(rectStatus);
+
+			int nHeight = rectStatus.Height();
+			rectStatus.bottom = rtWindow.bottom;
+			rectStatus.top    = rectStatus.bottom - nHeight -(bBottomFrame ? -1 : szSysBorder.cy);
+			rectStatus.left   = rtWindow.left;
+			rectStatus.right  = rtWindow.right;
+
+			if (bExtended)
+			{
+				rectExt.left   = rectStatus.right - rectExt.Width() - szSysBorder.cx;
+				rectExt.top    = rectStatus.top;
+				rectExt.bottom = rectStatus.bottom;
+				rectExt.right  = rtWindow.right;
+			}
+
+			pVisualManager->m_ctrlStatusBarBack.Draw(&dc, rectStatus, bActive ? 0 : 1);
+
+			if (bExtended)
+			{
+				rectExt.left -= pVisualManager->m_ctrlStatusBarBack_Ext.GetParams().m_rectCorners.left;
+				pVisualManager->m_ctrlStatusBarBack_Ext.Draw(&dc, rectExt, bActive ? 0 : 1);
+			}
+		}
+
+		dc.SelectClipRgn(NULL);
+
+		return TRUE;
+	}
+
+	return CMFCVisualManager::GetInstance()->OnNcPaint(pWnd, lstSysButtons, rectRedraw);
+}
+
+BOOL CKofStyleHelper::OnSetWindowRegion( CWnd* pWnd, CSize sizeWindow )
+{
+	if (KOF_CMFCVisualManagerOffice2007 != m_Style)
+	{
+		return CMFCVisualManager::GetInstance()->OnSetWindowRegion(pWnd, sizeWindow);
+	}
+	CKofMFCVisualManagerOffice2007 *pVisualManager = (CKofMFCVisualManagerOffice2007 *)CMFCVisualManager::GetInstance();
+	if (!pVisualManager)
+	{
+		return CMFCVisualManager::GetInstance()->OnSetWindowRegion(pWnd, sizeWindow);
+	}
+	ASSERT_VALID(pWnd);
+
+	if (pWnd->GetSafeHwnd() == NULL)
+	{
+		return FALSE;
+	}
+
+	if (!pVisualManager->CanDrawImage())
+	{
+		return FALSE;
+	}
+
+	if (afxGlobalData.DwmIsCompositionEnabled())
+	{
+		return FALSE;
+	}
+
+	CSize sz(0, 0);
+
+	BOOL bMainWnd = FALSE;
+
+	if (DYNAMIC_DOWNCAST(CMFCPopupMenu, pWnd) != NULL)
+	{
+		sz  = CSize(3, 3);
+	}
+	else if (DYNAMIC_DOWNCAST(CMFCRibbonBar, pWnd) != NULL)
+	{
+		return FALSE;
+	}
+	else
+	{
+		if ((pWnd->GetStyle() & WS_MAXIMIZE) == WS_MAXIMIZE)
+		{
+			pWnd->SetWindowRgn(NULL, TRUE);
+			return TRUE;
+		}
+
+		sz  = CSize(9, 9);
+		bMainWnd = TRUE;
+	}
+
+	if (sz != CSize(0, 0))
+	{
+		CRgn rgn;
+		BOOL bCreated = FALSE;
+
+		bCreated = rgn.CreateRoundRectRgn(0, 0, sizeWindow.cx + 1, sizeWindow.cy + 1, sz.cx, sz.cy);
+
+		if (bCreated)
+		{
+			if (pWnd->IsKindOf(RUNTIME_CLASS(CMDIChildWnd)) ||	
+				pWnd->IsKindOf (RUNTIME_CLASS (CKofDialogEx)) ||
+				pWnd->IsKindOf (RUNTIME_CLASS (CKofMFCPropertySheet)))
+			{
+				CRgn rgnWinodw;
+				rgnWinodw.CreateRectRgn(0, sz.cy, sizeWindow.cx, sizeWindow.cy);
+
+				rgn.CombineRgn(&rgn, &rgnWinodw, RGN_OR);
+			}
+
+			pWnd->SetWindowRgn((HRGN)rgn.Detach(), TRUE);
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }
 

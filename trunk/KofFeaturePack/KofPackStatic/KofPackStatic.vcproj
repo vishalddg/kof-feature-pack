@@ -218,11 +218,75 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\src\KofComboBox.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\KofDialogEx.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\KofDlgImpl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofFormView.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofGroup.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMessageBox.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCButton.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCColorButton.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCEdit.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCFontComboBox.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCMaskedEdit.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCPropertyPage.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCPropertySheet.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCSpinButtonCtrl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMFCTabCtrl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofProgressCtrl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofRichEditCtrl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofStatic.cpp"
 				>
 			</File>
 			<File
@@ -264,6 +328,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\include\KofComboBox.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\KofDialogEx.h"
 				>
 			</File>
@@ -272,11 +340,75 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\KofFormView.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofGroup.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMessageBox.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCButton.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCColorButton.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCEdit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCFontComboBox.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCMaskedEdit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCPropertyPage.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCPropertySheet.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCSpinButtonCtrl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCTabCtrl.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\KofPack.h"
 				>
 			</File>
 			<File
 				RelativePath="..\include\KofPackInc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofProgressCtrl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofResource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofRichEditCtrl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofStatic.h"
 				>
 			</File>
 			<File
@@ -297,6 +429,10 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath="..\include\KofPackRes.rc"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\ReadMe.txt"

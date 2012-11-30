@@ -6,7 +6,7 @@
 
 class KOFPACKDLLEXPORT CKofMFCSpinButtonCtrl : public CMFCSpinButtonCtrl
 {
-	DECLARE_DYNAMIC(CKofMFCSpinButtonCtrl)
+	//DECLARE_DYNAMIC(CKofMFCSpinButtonCtrl)
 
 public:
 	CKofMFCSpinButtonCtrl();

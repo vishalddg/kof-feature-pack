@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="testSDI"
-	ProjectGUID="{309C0F0E-DB53-4613-B15D-D4D19ECA0BBA}"
-	RootNamespace="testSDI"
+	Name="testDlg"
+	ProjectGUID="{3A83259B-5D3F-4D6B-BF8D-EBD2CD0435C4}"
+	RootNamespace="testDlg"
 	Keyword="MFCProj"
 	TargetFrameworkVersion="196613"
 	>
@@ -152,94 +152,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="KofPack.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(SolutionDir)Lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine="echo D | xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Bin\$(ConfigurationName)&quot; /y"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Debug_Static|Win32"
-			OutputDirectory="$(SolutionDir)Temp\Link\$(ProjectName)\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)Temp\Compile\$(ProjectName)\$(ConfigurationName)"
-			ConfigurationType="1"
-			UseOfMFC="1"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				MkTypLibCompatible="false"
-				ValidateParameters="true"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="$(SolutionDir)Include"
-				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				UsePrecompiledHeader="2"
-				WarningLevel="3"
-				DebugInformationFormat="4"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)Include&quot;;&quot;$(IntDir)&quot;"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="KofPackStaticd.lib"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="$(SolutionDir)Lib"
-				GenerateDebugInformation="true"
-				SubSystem="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -275,22 +194,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\MainFrm.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MyForm.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Page.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sheet.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -309,25 +212,13 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Static|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\testSDI.cpp"
+				RelativePath=".\testDlg.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\testSDIDoc.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\testSDIView.cpp"
+				RelativePath=".\testDlgDlg.cpp"
 				>
 			</File>
 		</Filter>
@@ -337,23 +228,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\MainFrm.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MyForm.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Page.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Resource.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sheet.h"
 				>
 			</File>
 			<File
@@ -365,15 +240,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\testSDI.h"
+				RelativePath=".\testDlg.h"
 				>
 			</File>
 			<File
-				RelativePath=".\testSDIDoc.h"
-				>
-			</File>
-			<File
-				RelativePath=".\testSDIView.h"
+				RelativePath=".\testDlgDlg.h"
 				>
 			</File>
 		</Filter>
@@ -383,63 +254,15 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\res\buttons.bmp"
+				RelativePath=".\res\testDlg.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\res\filelarge.bmp"
+				RelativePath=".\testDlg.rc"
 				>
 			</File>
 			<File
-				RelativePath=".\res\filesmall.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\icons.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\main.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\Radio.bmp"
-				>
-			</File>
-			<File
-				RelativePath="..\include\Black\Ribbon\Buttons\Radio.PNG"
-				>
-			</File>
-			<File
-				RelativePath=".\res\testSDI.ico"
-				>
-			</File>
-			<File
-				RelativePath=".\testSDI.rc"
-				>
-			</File>
-			<File
-				RelativePath=".\res\testSDI.rc2"
-				>
-			</File>
-			<File
-				RelativePath=".\res\testSDIDoc.ico"
-				>
-			</File>
-			<File
-				RelativePath=".\res\Toolbar.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\Toolbar256.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\writelarge.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\writesmall.bmp"
+				RelativePath=".\res\testDlg.rc2"
 				>
 			</File>
 		</Filter>
@@ -449,9 +272,5 @@
 		</File>
 	</Files>
 	<Globals>
-		<Global
-			Name="RESOURCE_FILE"
-			Value="testSDI.rc"
-		/>
 	</Globals>
 </VisualStudioProject>

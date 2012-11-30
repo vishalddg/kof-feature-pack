@@ -16,6 +16,7 @@ public:
 	virtual ~CKofDialogEx();
 
 	void EnableVisualManagerStyle(BOOL bEnable = TRUE, BOOL bNCArea = FALSE, const CList<UINT,UINT>* plstNonSubclassedItems = NULL);
+	void UpdateCaptionButtons(){m_KImpl.UpdateCaptionButtons();}
 
 protected:
 	CKofDlgImpl m_KImpl;

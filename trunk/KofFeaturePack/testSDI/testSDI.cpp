@@ -25,6 +25,7 @@
 #include "afxcolorbutton.h"
 #include "afxtagmanager.h"
 #include "Sheet.h"
+#include "MyForm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -107,7 +108,7 @@ BOOL CtestSDIApp::InitInstance()
 		IDR_MAINFRAME,
 		RUNTIME_CLASS(CtestSDIDoc),
 		RUNTIME_CLASS(CMainFrame),       // main SDI frame window
-		RUNTIME_CLASS(CtestSDIView));
+		RUNTIME_CLASS(CMyForm));
 	if (!pDocTemplate)
 		return FALSE;
 	AddDocTemplate(pDocTemplate);
@@ -179,6 +180,10 @@ public:
 	CEdit		m_wnd2;
 	CEdit		m_wnd3;
 	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButton2();
+	afx_msg void OnBnClickedButton3();
+	afx_msg void OnBnClickedButton4();
+	afx_msg void OnBnClickedButton5();
 };
 
 CAboutDlg::CAboutDlg() : CKofDialogEx(CAboutDlg::IDD)
@@ -212,6 +217,10 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CKofDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CAboutDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &CAboutDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &CAboutDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, &CAboutDlg::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON5, &CAboutDlg::OnBnClickedButton5)
 END_MESSAGE_MAP()
 
 // App command to run the dialog
@@ -306,4 +315,33 @@ void CAboutDlg::OnBnClickedButton1()
 	CSheet a;
 	a.SetTitle(_T("ÊôÐÔÒ³"));
 	a.DoModal();
+}
+
+void CAboutDlg::OnBnClickedButton2()
+{
+	
+
+}
+
+void CAboutDlg::OnBnClickedButton3()
+{
+	CFrameWnd* pFrame = new CFrameWnd;
+	CCreateContext cc;
+	cc.m_pCurrentDoc = NULL;
+	cc.m_pNewViewClass = RUNTIME_CLASS(CMyForm);
+	cc.m_pCurrentFrame = pFrame;
+	pFrame->Create(NULL, _T("MyFrameWnd"), WS_OVERLAPPEDWINDOW, CFrameWnd::rectDefault, NULL, NULL, 0, &cc);
+	pFrame->ShowWindow(SW_SHOW);
+	((CMyForm*)pFrame->GetActiveView())->EnableVisualManagerStyle(TRUE);
+}
+
+void CAboutDlg::OnBnClickedButton4()
+{
+	KofMessageBox(_T("fdfd"), MB_OK | MB_ICONERROR);
+}
+
+void CAboutDlg::OnBnClickedButton5()
+{
+	CKofMessageBox::SetLocalizedString(IDYES, _T("ÊÇµÄÅ¶"));
+	KofMessageBox(GetSafeHwnd(), _T("fdfd"), _T("dfdf3"), MB_YESNOCANCEL | MB_ICONWARNING);
 }

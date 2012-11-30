@@ -1,11 +1,15 @@
 #pragma once
 #include "KofPack.h"
 
+//////////////////////////////////////////////////////////////////////////
+// CKofDlgImpl
+
 class KOFPACKDLLEXPORT CKofDlgImpl
 {
 	friend class CKofDialogEx;
 	friend class CKofMFCPropertySheet;
 	friend class CKofMFCPropertyPage;
+	friend class CKofFormView;
 
 public:
 	CKofDlgImpl(CWnd& dlg);

@@ -7,6 +7,6 @@
 	#else
 		#define KOFPACKDLLEXPORT  _declspec(dllimport)
 	#endif
-	#else
+#else
 		#define KOFPACKDLLEXPORT
 #endif

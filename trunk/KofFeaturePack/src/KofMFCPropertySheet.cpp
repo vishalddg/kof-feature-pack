@@ -4,26 +4,35 @@
 #include "..\include\KofMFCPropertySheet.h"
 #include "..\include\KofStyleHelper.h"
 
+const int idTree = 101;
+const int idTab = 102;
+const int idList = 103;
+
 //////////////////////////////////////////////////////////////////////////
 // CKofMFCPropertySheet
 
 IMPLEMENT_DYNAMIC(CKofMFCPropertySheet, CMFCPropertySheet)
 
+BOOL CKofMFCPropertySheet::m_bUseOldLookInTreeMode = FALSE;
+
 CKofMFCPropertySheet::CKofMFCPropertySheet()
 :m_KImpl(*this)
 {
+	m_bDrawPageFrame = FALSE;
 }
 
 CKofMFCPropertySheet::CKofMFCPropertySheet( UINT nIDCaption, CWnd* pParentWnd /*= NULL*/, UINT iSelectPage /*= 0*/ )
 :CMFCPropertySheet(nIDCaption, pParentWnd, iSelectPage),
 m_KImpl(*this)
 {
+	m_bDrawPageFrame = FALSE;
 }
 
 CKofMFCPropertySheet::CKofMFCPropertySheet( LPCTSTR pszCaption, CWnd* pParentWnd /*= NULL*/, UINT iSelectPage /*= 0*/ )
 :CMFCPropertySheet(pszCaption, pParentWnd, iSelectPage),
 m_KImpl(*this)
 {
+	m_bDrawPageFrame = FALSE;
 }
 
 CKofMFCPropertySheet::~CKofMFCPropertySheet()
@@ -139,7 +148,7 @@ BOOL CKofMFCPropertySheet::OnEraseBkgnd(CDC* pDC)
 		return bRes;
 	}
 
-	/*if (m_bDrawPageFrame)
+	if (m_bDrawPageFrame)
 	{
 		CWnd* pPage = GetActivePage ();
 		if (pPage->GetSafeHwnd () != NULL)
@@ -148,10 +157,12 @@ BOOL CKofMFCPropertySheet::OnEraseBkgnd(CDC* pDC)
 			pPage->GetWindowRect (rectFrame);
 			ScreenToClient (&rectFrame);
 
-			CPenSelector pen (*pDC, globalData.clrBarShadow);
-
+			CPen penBarShadow;
+			penBarShadow.CreatePen(PS_SOLID, 1, afxGlobalData.clrBarShadow);
+			CPen *pOldPen = pDC->SelectObject(&penBarShadow);
 			pDC->MoveTo (rectClient.left, rectFrame.bottom + 1);
 			pDC->LineTo (rectClient.right, rectFrame.bottom + 1);
+			pDC->SelectObject(pOldPen);
 		}
 
 		if (m_look == PropSheetLook_Tree && m_wndTree.GetSafeHwnd () != NULL)
@@ -162,9 +173,9 @@ BOOL CKofMFCPropertySheet::OnEraseBkgnd(CDC* pDC)
 
 			rectTree.InflateRect (1, 1);
 
-			pDC->Draw3dRect (rectTree, globalData.clrBarShadow, globalData.clrBarShadow);
+			pDC->Draw3dRect (rectTree, afxGlobalData.clrBarShadow, afxGlobalData.clrBarShadow);
 		}
-	}*/
+	}
 
 	return TRUE;
 }
@@ -210,6 +221,30 @@ LRESULT CKofMFCPropertySheet::OnSetText( WPARAM, LPARAM )
 BOOL CKofMFCPropertySheet::OnInitDialog()
 {
 	BOOL bResult = CMFCPropertySheet::OnInitDialog();
+	if (NULL == m_wndTab.GetSafeHwnd())
+	{
+		m_bDrawPageFrame = TRUE;
+	}
+	if (m_look == PropSheetLook_Tree && m_wndTree.GetSafeHwnd())
+	{
+		CRect rectNavigator;
+		m_wndTree.GetWindowRect(rectNavigator);
+		ScreenToClient(rectNavigator);
+		rectNavigator.bottom--;
+		rectNavigator.DeflateRect(1, 1);
+		m_wndTree.SetWindowPos(&wndTop, rectNavigator.left, rectNavigator.top, rectNavigator.Width(), rectNavigator.Height(), SWP_NOACTIVATE);
+	}
+	if (m_look == PropSheetLook_OutlookBar && m_wndOutlookBar.GetSafeHwnd())
+	{
+		CRect rectNavigator;
+		m_wndOutlookBar.GetWindowRect(rectNavigator);
+		ScreenToClient(rectNavigator);
+		rectNavigator.bottom--;
+		m_wndOutlookBar.SetWindowPos(&wndTop, rectNavigator.left, rectNavigator.top, rectNavigator.Width(), rectNavigator.Height(), SWP_NOACTIVATE);
+	}
+	CTabCtrl* pTab = GetTabControl();
+	ASSERT_VALID(pTab);
+	pTab->ShowWindow(SW_HIDE);
 
 	m_KImpl.m_bHasBorder = (GetStyle () & WS_BORDER) != 0;
 	EnableVisualManagerStyle(TRUE, TRUE);
@@ -242,4 +277,22 @@ void CKofMFCPropertySheet::OnDestroy()
 {
 	m_KImpl.OnDestroy();
 	CMFCPropertySheet::OnDestroy();
+}
+
+CWnd* CKofMFCPropertySheet::InitNavigationControl()
+{
+	CWnd* pWndNavigator = CMFCPropertySheet::InitNavigationControl();
+	if (NULL == pWndNavigator)
+	{
+		return pWndNavigator;
+	}
+	if (m_look == PropSheetLook_Tree)
+	{
+		if (!m_bUseOldLookInTreeMode)
+		{
+			m_wndTree.ModifyStyle(0, 0x0200 /* TVS_TRACKSELECT */ | TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS);
+		}
+		m_wndTree.ModifyStyleEx(WS_EX_CLIENTEDGE, 0);		
+	}
+	return pWndNavigator;
 }

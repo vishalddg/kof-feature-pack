@@ -6,7 +6,7 @@
 
 class KOFPACKDLLEXPORT CKofMFCEdit : public CMFCEditBrowseCtrl
 {
-	DECLARE_DYNAMIC(CKofMFCEdit)
+	//DECLARE_DYNAMIC(CKofMFCEdit)
 
 public:
 	CKofMFCEdit();

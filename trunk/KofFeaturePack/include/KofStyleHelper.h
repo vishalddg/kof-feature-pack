@@ -3,6 +3,9 @@
 #include "KofMFCButton.h"
 #include "KofGroup.h"
 
+//////////////////////////////////////////////////////////////////////////
+// CKofStyleHelper
+
 class KOFPACKDLLEXPORT CKofStyleHelper
 {
 public:
@@ -21,6 +24,7 @@ public:
 		KOF_MAXCOUNT,
 	};
 	BOOL SetStyle(UINT nStyle);
+	void SetDlgCaptionCenter(BOOL bDlgCaptionCenter){m_bDlgCaptionCenter = bDlgCaptionCenter;}
 
 	virtual BOOL OnFillDialog(CDC* pDC, CWnd* pDlg, CRect rect);
 	virtual CBrush& GetDlgBackBrush(CWnd* pDlg);
@@ -34,6 +38,8 @@ public:
 	virtual void OnEditContextMenu(CWnd* pWnd, CPoint point);
 	virtual BOOL Draw2007RadioButton(CDC *pDC, CRect rect, BOOL bHighlighted, BOOL bChecked, BOOL bEnabled, BOOL bPressed);
 	virtual void OnDrawGroup(CDC* pDC, CKofGroup* pGroup, CRect rect, const CString& strName);
+	virtual BOOL OnNcPaint(CWnd* pWnd, const CObList& lstSysButtons, CRect rectRedraw);
+	virtual BOOL OnSetWindowRegion(CWnd* pWnd, CSize sizeWindow);
 
 private:
 	CKofStyleHelper(void);
@@ -49,5 +55,5 @@ private:
 	COLORREF m_clrRibbonEditBorderDisabled;
 	COLORREF m_clrRibbonEditBorderHighlighted;
 	COLORREF m_clrRibbonEditBorderPressed;
-
+	BOOL m_bDlgCaptionCenter;
 };
