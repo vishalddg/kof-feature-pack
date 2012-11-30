@@ -19,8 +19,6 @@ public:
 
 protected:
 	CKofDlgImpl m_KImpl;
-	DECLARE_MESSAGE_MAP()
-public:
 	afx_msg void OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized);
 	afx_msg BOOL OnNcActivate(BOOL bActive);
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
@@ -28,6 +26,7 @@ public:
 	afx_msg void OnDestroy();
 	afx_msg void OnNcPaint();
 	virtual BOOL OnInitDialog();
+	DECLARE_MESSAGE_MAP()
 };
 
 

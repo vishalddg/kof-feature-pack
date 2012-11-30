@@ -126,7 +126,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_AFXEXT"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_AFXEXT;_KOFPACK_"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
@@ -311,7 +311,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\KofFormView.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\KofGroup.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\KofMessageBox.cpp"
 				>
 			</File>
 			<File
@@ -425,7 +433,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\KofFormView.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\KofGroup.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMessageBox.h"
 				>
 			</File>
 			<File

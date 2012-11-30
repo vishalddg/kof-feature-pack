@@ -9,6 +9,9 @@
 #include "..\include\KofMFCEdit.h"
 #include "..\include\KofProgressCtrl.h"
 
+//////////////////////////////////////////////////////////////////////////
+// CKofDlgImpl
+
 CKofDlgImpl::CKofDlgImpl(CWnd& dlg)
 :m_Dlg(dlg),
 m_nHotSysButton(HTNOWHERE),
@@ -37,7 +40,7 @@ BOOL CKofDlgImpl::OnNcPaint()
 		return FALSE;
 	}
 
-	return CMFCVisualManager::GetInstance()->OnNcPaint(&m_Dlg, m_lstCaptionSysButtons, m_rectRedraw);
+	return CKofStyleHelper::GetInstance()->OnNcPaint(&m_Dlg, m_lstCaptionSysButtons, m_rectRedraw);
 }
 
 void CKofDlgImpl::RedrawCaptionButton( CMFCCaptionButtonEx* pBtn )
@@ -244,7 +247,7 @@ void CKofDlgImpl::OnChangeVisualManager()
 			m_bWindowPosChanging = FALSE;
 		}
 
-		m_bIsWindowRgn = CMFCVisualManager::GetInstance()->OnSetWindowRegion (
+		m_bIsWindowRgn = CKofStyleHelper::GetInstance()->OnSetWindowRegion (
 			&m_Dlg, rectWindow.Size ());
 
 		if (bZoomed && bChangeBorder)
@@ -316,7 +319,7 @@ void CKofDlgImpl::OnWindowPosChanged( WINDOWPOS FAR* lpwndpos )
 	{
 		m_bWindowPosChanging = TRUE;
 
-		m_bIsWindowRgn = CMFCVisualManager::GetInstance()->OnSetWindowRegion (
+		m_bIsWindowRgn = CKofStyleHelper::GetInstance()->OnSetWindowRegion (
 			&m_Dlg, CSize (lpwndpos->cx, lpwndpos->cy));
 
 		m_bWindowPosChanging = FALSE;

@@ -7,7 +7,7 @@
 //////////////////////////////////////////////////////////////////////////
 // CKofMFCEdit
 
-IMPLEMENT_DYNAMIC(CKofMFCEdit, CMFCEditBrowseCtrl)
+//IMPLEMENT_DYNAMIC(CKofMFCEdit, CMFCEditBrowseCtrl)
 
 CKofMFCEdit::CKofMFCEdit()
 {

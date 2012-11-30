@@ -19,3 +19,5 @@
 #include "KofMFCTabCtrl.h"
 #include "KofMFCPropertySheet.h"
 #include "KofMFCPropertyPage.h"
+#include "KofFormView.h"
+#include "KofMessageBox.h"

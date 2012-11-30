@@ -4,6 +4,7 @@
 //
 #define IDD_ABOUTBOX                    100
 #define IDP_OLE_INIT_FAILED             100
+#define IDD_FORMVIEW                    101
 #define IDB_WRITESMALL                  110
 #define IDB_WRITELARGE                  111
 #define IDB_MAIN                        112
@@ -85,6 +86,9 @@
 #define IDC_COMBO4                      1020
 #define IDC_STATIC_GROUP                1021
 #define IDC_STATIC_TAB                  1022
+#define IDC_BUTTON3                     1023
+#define IDC_BUTTON4                     1024
+#define IDC_BUTTON5                     1025
 #define ID_WRITE_PASTEASHYPERLINK       32770
 #define ID_2000                         32771
 #define ID_OFFICEXP                     32772
@@ -98,7 +102,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        316
 #define _APS_NEXT_COMMAND_VALUE         32776
-#define _APS_NEXT_CONTROL_VALUE         1023
+#define _APS_NEXT_CONTROL_VALUE         1026
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

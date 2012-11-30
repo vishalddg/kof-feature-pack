@@ -16,9 +16,12 @@ public:
 	virtual ~CKofMFCPropertySheet();
 
 	void EnableVisualManagerStyle(BOOL bEnable = TRUE, BOOL bNCArea = FALSE, const CList<UINT,UINT>* plstNonSubclassedItems = NULL);
+	static BOOL	m_bUseOldLookInTreeMode;
 
 protected:
 	CKofDlgImpl m_KImpl;
+	BOOL m_bDrawPageFrame;
+
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnNcPaint();
 	afx_msg void OnNcMouseMove(UINT nHitTest, CPoint point);
@@ -33,12 +36,14 @@ protected:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg LRESULT OnChangeVisualManager(WPARAM, LPARAM);
 	afx_msg LRESULT OnSetText(WPARAM, LPARAM);
+	afx_msg void OnDestroy();
 	DECLARE_MESSAGE_MAP()
 
 public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnInitDialog();
-	afx_msg void OnDestroy();
+	virtual CWnd* InitNavigationControl();
+
 };
 
 

@@ -7,7 +7,7 @@
 //////////////////////////////////////////////////////////////////////////
 // CKofSpinButtonCtrl
 
-IMPLEMENT_DYNAMIC(CKofMFCSpinButtonCtrl, CMFCSpinButtonCtrl)
+//IMPLEMENT_DYNAMIC(CKofMFCSpinButtonCtrl, CMFCSpinButtonCtrl)
 
 CKofMFCSpinButtonCtrl::CKofMFCSpinButtonCtrl()
 {

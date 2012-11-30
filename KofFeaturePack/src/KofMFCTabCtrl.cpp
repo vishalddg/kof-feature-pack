@@ -8,9 +8,10 @@
 
 //////////////////////////////////////////////////////////////////////////
 // CKofMFCTabCtrl
-
-int CMFCBaseTabCtrl::AFX_TAB_TEXT_MARGIN = 4;
-int CMFCBaseTabCtrl::AFX_TAB_IMAGE_MARGIN = 4;
+#if defined _AFXDLL && !defined _KOFPACK_STATIC_
+	int CMFCBaseTabCtrl::AFX_TAB_TEXT_MARGIN = 4;
+	int CMFCBaseTabCtrl::AFX_TAB_IMAGE_MARGIN = 4;
+#endif
 
 IMPLEMENT_DYNCREATE(CKofMFCTabCtrl, CMFCTabCtrl)
 
