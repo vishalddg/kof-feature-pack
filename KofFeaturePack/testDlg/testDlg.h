@@ -27,6 +27,7 @@ public:
 // Implementation
 
 	DECLARE_MESSAGE_MAP()
+	virtual int DoMessageBox(LPCTSTR lpszPrompt, UINT nType, UINT nIDPrompt);
 };
 
 extern CtestDlgApp theApp;

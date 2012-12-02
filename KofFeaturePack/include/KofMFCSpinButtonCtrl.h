@@ -12,6 +12,8 @@ public:
 
 	virtual void OnDraw(CDC* pDC);
 protected:
+	virtual void PreSubclassWindow();
+	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 	DECLARE_MESSAGE_MAP()
 };
 

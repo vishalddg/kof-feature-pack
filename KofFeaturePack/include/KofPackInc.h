@@ -21,3 +21,4 @@
 #include "KofMFCPropertyPage.h"
 #include "KofFormView.h"
 #include "KofMessageBox.h"
+#include "KofMFCMenuButton.h"
