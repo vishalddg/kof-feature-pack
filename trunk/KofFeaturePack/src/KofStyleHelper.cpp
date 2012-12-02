@@ -59,6 +59,40 @@ CKofStyleHelper::~CKofStyleHelper(void)
 	m_ctrlRibbonBtnRadio.CleanUp();
 }
 
+BOOL CKofStyleHelper::AutoSetStyle()
+{
+	UINT nStyle = KOF_MAXCOUNT;
+	CMFCVisualManager *pVisualManager = CMFCVisualManager::GetInstance();
+	if (pVisualManager->IsKindOf(RUNTIME_CLASS(CMFCVisualManagerOffice2007)))
+	{
+		return SetStyle(KOF_CMFCVisualManagerOffice2007);
+	} 
+	else if (pVisualManager->IsKindOf(RUNTIME_CLASS(CMFCVisualManagerVS2005)))
+	{
+		return SetStyle(KOF_CMFCVisualManagerVS2005);
+	}
+	else if (pVisualManager->IsKindOf(RUNTIME_CLASS(CMFCVisualManagerOffice2003)))
+	{
+		return SetStyle(KOF_CMFCVisualManagerOffice2003);
+	}
+	else if (pVisualManager->IsKindOf(RUNTIME_CLASS(CMFCVisualManagerWindows)))
+	{
+		return SetStyle(KOF_CMFCVisualManagerWindows);
+	}
+	else if (pVisualManager->IsKindOf(RUNTIME_CLASS(CMFCVisualManagerOfficeXP)))
+	{
+		return SetStyle(KOF_CMFCVisualManagerOfficeXP);
+	}
+	else if (pVisualManager->IsKindOf(RUNTIME_CLASS(CMFCVisualManager)))
+	{
+		return SetStyle(KOF_CMFCVisualManager);
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
 BOOL CKofStyleHelper::SetStyle( UINT nStyle )
 {
 	if (nStyle >= KOF_MAXCOUNT)
@@ -222,6 +256,7 @@ BOOL CKofStyleHelper::OnDrawPushButton( CDC* pDC, CRect rect, CKofMFCButton* pBu
 {
 	switch (m_Style)
 	{
+	case KOF_CMFCVisualManagerOfficeXP:
 	case KOF_CMFCVisualManagerWindows:
 	case KOF_CMFCVisualManagerOffice2003:
 	case KOF_CMFCVisualManagerVS2005:
@@ -456,7 +491,7 @@ void CKofStyleHelper::OnDrawRibbonComboDropButton( CDC* pDC, CRect rect, BOOL bD
 {
 	CKofMFCToolBarComboBoxButton buttonDummy;
 	buttonDummy.m_bIsRibbon = TRUE;
-	CMFCVisualManager::GetInstance ()->OnDrawComboDropButton (
+	CMFCVisualManager::GetInstance()->OnDrawComboDropButton(
 		pDC, rect, bDisabled, bIsDropped,
 		bIsHighlighted,
 		&buttonDummy);
@@ -1125,3 +1160,149 @@ BOOL CKofStyleHelper::OnSetWindowRegion( CWnd* pWnd, CSize sizeWindow )
 	return FALSE;
 }
 
+void CKofStyleHelper::OnDrawSpinButtons( CDC* pDC, CRect rectSpin, int nState, BOOL bOrientation, CMFCSpinButtonCtrl* pSpinCtrl )
+{
+	if (KOF_CMFCVisualManagerOffice2007 != m_Style)
+	{
+		return CMFCVisualManager::GetInstance()->OnDrawSpinButtons(pDC, rectSpin, nState, bOrientation, pSpinCtrl);
+	}
+	ASSERT_VALID(pDC);
+
+	rectSpin.InflateRect(1, 1);
+	rectSpin.left += 1;
+	CRect rect [2];
+	rect[0] = rect[1] = rectSpin;
+
+	if (!bOrientation)
+	{
+		rect[0].DeflateRect(0, 0, 0, rect[0].Height() / 2);
+		rect[1].top = rect[0].bottom ;
+	}
+	else
+	{
+		rect[0].DeflateRect(0, 0, rect[0].Width() / 2, 0);
+		rect[1].left = rect[0].right ;
+	}
+
+	CMenuImages::IMAGES_IDS id[2][2] = {{CMenuImages::IdArrowUp, CMenuImages::IdArrowDown}, {CMenuImages::IdArrowLeft, CMenuImages::IdArrowRight}};
+
+	int idxPressed = (nState &(AFX_SPIN_PRESSEDUP | AFX_SPIN_PRESSEDDOWN)) - 1;
+	int idxHighlighted = -1;
+	if (nState & AFX_SPIN_HIGHLIGHTEDUP)
+	{
+		idxHighlighted = 0;
+	}
+	else if (nState & AFX_SPIN_HIGHLIGHTEDDOWN)
+	{
+		idxHighlighted = 1;
+	}
+
+	BOOL bDisabled = nState & AFX_SPIN_DISABLED;
+
+	CKofMFCVisualManagerOffice2007 *pVisualManager = DYNAMIC_DOWNCAST(CKofMFCVisualManagerOffice2007, CMFCVisualManager::GetInstance());
+	if (!pVisualManager)
+	{
+		return CMFCVisualManager::GetInstance()->OnDrawSpinButtons(pDC, rectSpin, nState, bOrientation, pSpinCtrl);
+	}
+	for (int i = 0; i < 2; i ++)
+	{
+		int nIndex = 0;
+		if (bDisabled)
+		{
+			nIndex = 3;
+		}
+		else
+		{
+			if (idxPressed == i)
+			{
+				nIndex = 2;
+			}
+			else if (idxHighlighted == i)
+			{
+				nIndex = 1;
+			}
+		}
+		if (pVisualManager->m_ctrlRibbonComboBoxBtn.IsValid())
+		{
+			pVisualManager->m_ctrlRibbonComboBoxBtn.Draw(pDC, rect[i], nIndex);
+		}
+		else
+		{
+			rect[i].DeflateRect(1, 1);
+			rect[i].left -= 1;
+			BOOL bRibbon = TRUE;
+			BOOL bIsDropped = idxPressed == i;
+			BOOL bActive = bIsDropped || idxHighlighted == i;
+			COLORREF color1 = bRibbon ? pVisualManager->m_clrRibbonComboBtnStart : pVisualManager->m_clrComboBtnStart;
+			COLORREF color2 = bRibbon ? pVisualManager->m_clrRibbonComboBtnFinish :pVisualManager-> m_clrComboBtnFinish;
+			COLORREF colorBorder = bRibbon ? pVisualManager->m_clrRibbonComboBtnBorder : pVisualManager->m_clrComboBtnBorder;
+			if (bDisabled)
+			{
+				color1 = bRibbon ? pVisualManager->m_clrRibbonComboBtnDisabledStart : pVisualManager->m_clrComboBtnDisabledStart;
+				color2 = bRibbon ? pVisualManager->m_clrRibbonComboBtnDisabledFinish : pVisualManager->m_clrComboBtnDisabledFinish;
+				colorBorder = bRibbon ? pVisualManager->m_clrRibbonComboBtnBorderDisabled : pVisualManager->m_clrComboBtnBorderDisabled;
+			}
+			else if (bActive)
+			{
+				if (bIsDropped)
+				{
+					color1 = bRibbon ? pVisualManager->m_clrRibbonComboBtnPressedStart : pVisualManager->m_clrComboBtnPressedStart;
+					color2 = bRibbon ? pVisualManager->m_clrRibbonComboBtnPressedFinish : pVisualManager->m_clrComboBtnPressedFinish;
+					colorBorder = bRibbon ? pVisualManager->m_clrRibbonComboBtnBorderPressed : pVisualManager->m_clrComboBtnBorderPressed;
+				}
+				else
+				{
+					color1 = bRibbon ? pVisualManager->m_clrRibbonComboBtnHighlightedStart : pVisualManager->m_clrComboBtnHighlightedStart;
+					color2 = bRibbon ? pVisualManager->m_clrRibbonComboBtnHighlightedFinish : pVisualManager->m_clrComboBtnHighlightedFinish;
+					colorBorder = bRibbon ? pVisualManager->m_clrRibbonComboBtnBorderHighlighted : pVisualManager->m_clrComboBtnBorderHighlighted;
+				}
+			}
+
+			if (bRibbon || !bDisabled || (bDisabled && colorBorder != (COLORREF)(-1)))
+			{
+				if (!bDisabled)
+				{
+					rect[i].InflateRect(0, 1, 1, 1);
+				}
+
+				if (CMFCToolBarImages::m_bIsDrawOnGlass)
+				{
+					CDrawingManager dm(*pDC);
+					dm.DrawRect(rect[i], (COLORREF)-1, colorBorder);
+				}
+				else
+				{
+					pDC->Draw3dRect(rect[i], colorBorder, colorBorder);
+				}
+
+				if (!bDisabled)
+				{
+					rect[i].DeflateRect(0, 1, 1, 1);
+				}
+			}
+
+			if (bDisabled)
+			{
+				rect[i].DeflateRect(0, 1, 1, 1);
+			}
+			else if (bActive)
+			{
+				rect[i].DeflateRect(1, 0, 0, 0);
+			}
+
+			CDrawingManager dm(*pDC);
+			dm.FillGradient(rect[i], color1, color2, TRUE);
+
+			if (bDisabled)
+			{
+				rect[i].InflateRect(0, 1, 1, 1);
+			}
+			else if (bActive)
+			{
+				rect[i].InflateRect(1, 0, 0, 0);
+			}
+		}
+		
+		CMenuImages::Draw(pDC, id [bOrientation ? 1 : 0][i], rect[i], bDisabled ? CMenuImages::ImageGray : CMenuImages::ImageBlack);
+	}
+}

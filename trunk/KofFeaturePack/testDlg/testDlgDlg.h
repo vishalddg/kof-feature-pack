@@ -3,6 +3,10 @@
 //
 
 #pragma once
+#include "kofmfccolorbutton.h"
+#include "kofmfcspinbuttonctrl.h"
+#include "kofmfcmenubutton.h"
+#include "afxbutton.h"
 
 
 // CtestDlgDlg dialog
@@ -22,6 +26,7 @@ public:
 // Implementation
 protected:
 	HICON m_hIcon;
+	CMenu m_menu;
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
@@ -30,4 +35,11 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnAbout();
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnCbnSelchangeCombo2();
+	CKofMFCFontComboBox m_ComboFont;
+	CKofMFCColorButton m_BtnColor;
+	CKofMFCMenuButton m_BtnMenu;
+	afx_msg void OnBnClickedButton2();
+	CMFCLinkCtrl m_BtnLink;
 };

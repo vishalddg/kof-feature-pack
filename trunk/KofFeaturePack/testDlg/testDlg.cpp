@@ -56,11 +56,13 @@ BOOL CtestDlgApp::InitInstance()
 	// Change the registry key under which our settings are stored
 	// TODO: You should modify this string to be something appropriate
 	// such as the name of your company or organization
-	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
+	//SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 	CMFCVisualManagerOffice2007::SetStyle(CMFCVisualManagerOffice2007::Office2007_LunaBlue);
 	CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOffice2007));
 	CKofStyleHelper::GetInstance()->SetStyle(CKofStyleHelper::KOF_CMFCVisualManagerOffice2007);
 
+	AfxInitRichEdit2();
+	InitShellManager();
 
 	CtestDlgDlg dlg;
 	m_pMainWnd = &dlg;
@@ -79,4 +81,10 @@ BOOL CtestDlgApp::InitInstance()
 	// Since the dialog has been closed, return FALSE so that we exit the
 	//  application, rather than start the application's message pump.
 	return FALSE;
+}
+
+int CtestDlgApp::DoMessageBox(LPCTSTR lpszPrompt, UINT nType, UINT nIDPrompt)
+{
+	return KofMessageBox(lpszPrompt, nType);
+	//return CWinAppEx::DoMessageBox(lpszPrompt, nType, nIDPrompt);
 }

@@ -8,6 +8,7 @@
 #include "..\include\KofMFCSpinButtonCtrl.h"
 #include "..\include\KofMFCEdit.h"
 #include "..\include\KofProgressCtrl.h"
+#include "..\include\KofRichEditCtrl.h"
 
 //////////////////////////////////////////////////////////////////////////
 // CKofDlgImpl
@@ -446,6 +447,10 @@ void CKofDlgImpl::EnableVisualManagerStyle( BOOL bEnable, BOOL bNCArea /*= FALSE
 			else if (strClass == UPDOWN_CLASS)
 			{
 				pWndSubclassedCtrl = new CKofMFCSpinButtonCtrl;
+			}
+			else if (strClass == RICHEDIT_CLASS)
+			{
+				pWndSubclassedCtrl = new CKofRichEditCtrl;
 			}
 
 			if (pWndSubclassedCtrl != NULL)

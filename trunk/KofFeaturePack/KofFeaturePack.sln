@@ -8,6 +8,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KofPackStatic", "KofPackStatic\KofPackStatic.vcproj", "{BF0CB4AA-E2BF-48E4-87F1-F155E70BD381}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testDlg", "testDlg\testDlg.vcproj", "{3A83259B-5D3F-4D6B-BF8D-EBD2CD0435C4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AE4C62FA-2E72-4F43-AA33-5F4BB085B31B} = {AE4C62FA-2E72-4F43-AA33-5F4BB085B31B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

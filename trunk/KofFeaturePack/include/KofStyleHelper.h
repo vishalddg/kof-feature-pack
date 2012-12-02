@@ -23,6 +23,7 @@ public:
 		KOF_CMFCVisualManagerOffice2007,
 		KOF_MAXCOUNT,
 	};
+	BOOL AutoSetStyle();
 	BOOL SetStyle(UINT nStyle);
 	void SetDlgCaptionCenter(BOOL bDlgCaptionCenter){m_bDlgCaptionCenter = bDlgCaptionCenter;}
 
@@ -40,6 +41,7 @@ public:
 	virtual void OnDrawGroup(CDC* pDC, CKofGroup* pGroup, CRect rect, const CString& strName);
 	virtual BOOL OnNcPaint(CWnd* pWnd, const CObList& lstSysButtons, CRect rectRedraw);
 	virtual BOOL OnSetWindowRegion(CWnd* pWnd, CSize sizeWindow);
+	virtual void OnDrawSpinButtons(CDC* pDC, CRect rectSpin, int nState, BOOL bOrientation, CMFCSpinButtonCtrl* pSpinCtrl);
 
 private:
 	CKofStyleHelper(void);

@@ -25,38 +25,38 @@ void CKofMFCSpinButtonCtrl::OnDraw( CDC* pDC )
 	ASSERT_VALID (pDC);
 
 	CRect rectClient;
-	GetClientRect (rectClient);
+	GetClientRect(rectClient);
 
-	if (GetBuddy ()->GetSafeHwnd () != NULL && (FALSE || CMFCToolBarImages::m_bIsDrawOnGlass || TRUE))
+	if (GetBuddy()->GetSafeHwnd() != NULL && (FALSE || CMFCToolBarImages::m_bIsDrawOnGlass || TRUE))
 	{
-		CRect rectBorder (0, 0, 0, 0);
+		CRect rectBorder(0, 0, 0, 0);		
 
-		if (GetStyle () & UDS_ALIGNRIGHT)
+		if (GetStyle() & UDS_ALIGNRIGHT)
 		{
 			rectBorder = rectClient;
-			rectClient.DeflateRect (1, 1);
+			rectClient.DeflateRect(1, 1);
 		}
-		else if (GetStyle () & UDS_ALIGNLEFT)
+		else if (GetStyle() & UDS_ALIGNLEFT)
 		{
 			rectBorder = rectClient;
-			rectClient.DeflateRect (1, 1);
+			rectClient.DeflateRect(1, 1);
 		}
 
-		if (!rectBorder.IsRectEmpty ())
+		if (!rectBorder.IsRectEmpty())
 		{
 			CKofStyleHelper::GetInstance()->OnDrawEditBorder(pDC, rectBorder, m_bIsButtonHighligtedDown || m_bIsButtonHighligtedUp,
 				m_bIsButtonPressedDown || m_bIsButtonPressedUp, IsWindowEnabled());
-		}
+		}		
 	}
-
+	
 	if (CMFCToolBarImages::m_bIsDrawOnGlass || FALSE)
 	{
 		CDrawingManager dm (*pDC);
-		dm.DrawRect (rectClient, afxGlobalData.clrWindow, (COLORREF)-1);
+		dm.DrawRect(rectClient, afxGlobalData.clrWindow, (COLORREF)-1);
 	}
 	else
 	{
-		pDC->FillRect (rectClient, &afxGlobalData.brWindow);
+		pDC->FillRect(rectClient, &afxGlobalData.brWindow);
 	}
 
 	int nState = 0;
@@ -81,12 +81,55 @@ void CKofMFCSpinButtonCtrl::OnDraw( CDC* pDC )
 		nState |= AFX_SPIN_HIGHLIGHTEDDOWN;
 	}
 
-	if (!IsWindowEnabled ())
+	if (!IsWindowEnabled())
 	{
 		nState |= AFX_SPIN_DISABLED;
 	}
 
+	if (GetBuddy()->GetSafeHwnd())
+	{
+		CKofStyleHelper::GetInstance()->OnDrawSpinButtons (
+			pDC, rectClient, nState, (GetStyle() & UDS_HORZ) == UDS_HORZ, this);
+	}
+	else
+	{
+		CMFCVisualManager::GetInstance()->OnDrawSpinButtons (
+			pDC, rectClient, nState, (GetStyle() & UDS_HORZ) == UDS_HORZ, this);
+	}
+}
 
-	CMFCVisualManager::GetInstance()->OnDrawSpinButtons (
-		pDC, rectClient, nState, (GetStyle() & UDS_HORZ) == UDS_HORZ, this);
+LRESULT CKofMFCSpinButtonCtrl::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	LRESULT nRet = CMFCSpinButtonCtrl::WindowProc(message, wParam, lParam);
+	if (message == UDM_SETBUDDY)
+	{
+		if (GetBuddy()->GetSafeHwnd())
+		{
+			CRect rc;
+			GetWindowRect(rc);
+			if (GetParent()->GetSafeHwnd())
+			{
+				GetParent()->ScreenToClient(rc);
+				rc.left += 1;
+				MoveWindow(rc, FALSE);
+			}
+		}
+	}
+	return nRet;
+}
+
+void CKofMFCSpinButtonCtrl::PreSubclassWindow()
+{
+	if (GetBuddy()->GetSafeHwnd())
+	{
+		CRect rc;
+		GetWindowRect(rc);
+		if (GetParent()->GetSafeHwnd())
+		{
+			GetParent()->ScreenToClient(rc);
+			rc.left += 1;
+			MoveWindow(rc, FALSE);
+		}
+	}
+	CMFCSpinButtonCtrl::PreSubclassWindow();
 }

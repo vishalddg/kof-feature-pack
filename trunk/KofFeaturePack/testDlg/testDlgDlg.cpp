@@ -56,6 +56,10 @@ CtestDlgDlg::CtestDlgDlg(CWnd* pParent /*=NULL*/)
 void CtestDlgDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CKofDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_COMBO3, m_ComboFont);
+	DDX_Control(pDX, IDC_BUTTON3, m_BtnColor);
+	DDX_Control(pDX, IDC_BUTTON2, m_BtnMenu);
+	DDX_Control(pDX, IDC_BUTTON4, m_BtnLink);
 }
 
 BEGIN_MESSAGE_MAP(CtestDlgDlg, CKofDialogEx)
@@ -64,6 +68,8 @@ BEGIN_MESSAGE_MAP(CtestDlgDlg, CKofDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_COMMAND(IDM_ABOUTBOX, OnAbout)
 	//}}AFX_MSG_MAP
+	ON_CBN_SELCHANGE(IDC_COMBO2, &CtestDlgDlg::OnCbnSelchangeCombo2)
+	ON_BN_CLICKED(IDC_BUTTON2, &CtestDlgDlg::OnBnClickedButton2)
 END_MESSAGE_MAP()
 
 
@@ -97,9 +103,18 @@ BOOL CtestDlgDlg::OnInitDialog()
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
+	
+	((CProgressCtrl*)GetDlgItem(IDC_PROGRESS1))->SetPos(35);
+	((CComboBox*)GetDlgItem(IDC_COMBO2))->SetCurSel(5);
+	((CKofMFCEdit*)GetDlgItem(IDC_EDIT2))->EnableFileBrowseButton();
+	((CKofMFCEdit*)GetDlgItem(IDC_EDIT3))->EnableFolderBrowseButton();
+	m_menu.LoadMenu(IDR_MENU1);
+	m_BtnMenu.m_hMenu = m_menu.GetSubMenu(0)->GetSafeHmenu();
+	m_BtnMenu.SizeToContent();
+	m_BtnMenu.m_bOSMenu = FALSE;
 
 	// TODO: Add extra initialization here
-
+	//((CMFCSpinButtonCtrl*)GetDlgItem(IDC_SPIN1))->SetBuddy(GetDlgItem(IDC_EDIT1));
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -158,3 +173,56 @@ void CtestDlgDlg::OnAbout()
 	dlgAbout.DoModal();
 }
 
+void CtestDlgDlg::OnCbnSelchangeCombo2()
+{
+	int nSel = ((CComboBox*)GetDlgItem(IDC_COMBO2))->GetCurSel();
+	switch (nSel)
+	{
+	case 0:
+		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManager));
+		break;
+	case 1:
+		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOfficeXP));
+		break;
+	case 2:
+		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerWindows));
+		break;
+	case 3:
+		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOffice2003));
+		break;
+	case 4:
+		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerVS2005));
+		break;
+	case 5:
+		CMFCVisualManagerOffice2007::SetStyle(CMFCVisualManagerOffice2007::Office2007_LunaBlue);
+		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOffice2007));
+		break;
+	case 6:
+		CMFCVisualManagerOffice2007::SetStyle(CMFCVisualManagerOffice2007::Office2007_ObsidianBlack);
+		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOffice2007));
+		break;
+	case 7:
+		CMFCVisualManagerOffice2007::SetStyle(CMFCVisualManagerOffice2007::Office2007_Silver);
+		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOffice2007));
+		break;
+	case 8:
+		CMFCVisualManagerOffice2007::SetStyle(CMFCVisualManagerOffice2007::Office2007_Aqua);
+		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOffice2007));
+		break;
+	}
+	CKofStyleHelper::GetInstance()->AutoSetStyle();
+	RedrawWindow(NULL, NULL, RDW_ALLCHILDREN | RDW_INVALIDATE | RDW_UPDATENOW | RDW_FRAME | RDW_ERASE);
+}
+
+void CtestDlgDlg::OnBnClickedButton2()
+{
+	CString strItem;
+	switch (m_BtnMenu.m_nMenuResult)
+	{
+	case ID_32771:strItem = _T("点击了第一项");
+		break;
+	case ID_32772:strItem = _T("点击了第二项");
+		break;
+	}
+	AfxMessageBox(strItem, MB_OK | MB_ICONINFORMATION);
+}
