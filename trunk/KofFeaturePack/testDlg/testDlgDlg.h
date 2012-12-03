@@ -42,4 +42,6 @@ public:
 	CKofMFCMenuButton m_BtnMenu;
 	afx_msg void OnBnClickedButton2();
 	CMFCLinkCtrl m_BtnLink;
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButton5();
 };

@@ -325,14 +325,7 @@ void CAboutDlg::OnBnClickedButton2()
 
 void CAboutDlg::OnBnClickedButton3()
 {
-	CFrameWnd* pFrame = new CFrameWnd;
-	CCreateContext cc;
-	cc.m_pCurrentDoc = NULL;
-	cc.m_pNewViewClass = RUNTIME_CLASS(CMyForm);
-	cc.m_pCurrentFrame = pFrame;
-	pFrame->Create(NULL, _T("MyFrameWnd"), WS_OVERLAPPEDWINDOW, CFrameWnd::rectDefault, NULL, NULL, 0, &cc);
-	pFrame->ShowWindow(SW_SHOW);
-	((CMyForm*)pFrame->GetActiveView())->EnableVisualManagerStyle(TRUE);
+	
 }
 
 void CAboutDlg::OnBnClickedButton4()

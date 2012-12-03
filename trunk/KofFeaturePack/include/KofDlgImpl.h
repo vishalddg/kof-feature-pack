@@ -10,6 +10,7 @@ class KOFPACKDLLEXPORT CKofDlgImpl
 	friend class CKofMFCPropertySheet;
 	friend class CKofMFCPropertyPage;
 	friend class CKofFormView;
+	friend class CKofFileDialog;
 
 public:
 	CKofDlgImpl(CWnd& dlg);

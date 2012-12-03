@@ -22,3 +22,4 @@
 #include "KofFormView.h"
 #include "KofMessageBox.h"
 #include "KofMFCMenuButton.h"
+#include "KofFileDialog.h"
