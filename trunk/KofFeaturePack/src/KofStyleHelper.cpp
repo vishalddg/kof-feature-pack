@@ -256,8 +256,13 @@ BOOL CKofStyleHelper::OnDrawPushButton( CDC* pDC, CRect rect, CKofMFCButton* pBu
 {
 	switch (m_Style)
 	{
-	case KOF_CMFCVisualManagerOfficeXP:
 	case KOF_CMFCVisualManagerWindows:
+		{
+			clrText = afxGlobalData.clrBtnText;
+			CMFCVisualManager::GetInstance()->DrawPushButton(pDC, rect, pButton, 0);
+		}
+		break;
+	case KOF_CMFCVisualManagerOfficeXP:
 	case KOF_CMFCVisualManagerOffice2003:
 	case KOF_CMFCVisualManagerVS2005:
 		{
@@ -1199,7 +1204,11 @@ void CKofStyleHelper::OnDrawSpinButtons( CDC* pDC, CRect rectSpin, int nState, B
 
 	BOOL bDisabled = nState & AFX_SPIN_DISABLED;
 
-	CKofMFCVisualManagerOffice2007 *pVisualManager = DYNAMIC_DOWNCAST(CKofMFCVisualManagerOffice2007, CMFCVisualManager::GetInstance());
+	if (!CMFCVisualManager::GetInstance()->IsKindOf(RUNTIME_CLASS(CMFCVisualManagerOffice2007)))
+	{
+		return CMFCVisualManager::GetInstance()->OnDrawSpinButtons(pDC, rectSpin, nState, bOrientation, pSpinCtrl);
+	} 
+	CKofMFCVisualManagerOffice2007 *pVisualManager = (CKofMFCVisualManagerOffice2007*)CMFCVisualManager::GetInstance();
 	if (!pVisualManager)
 	{
 		return CMFCVisualManager::GetInstance()->OnDrawSpinButtons(pDC, rectSpin, nState, bOrientation, pSpinCtrl);
@@ -1304,5 +1313,48 @@ void CKofStyleHelper::OnDrawSpinButtons( CDC* pDC, CRect rectSpin, int nState, B
 		}
 		
 		CMenuImages::Draw(pDC, id [bOrientation ? 1 : 0][i], rect[i], bDisabled ? CMenuImages::ImageGray : CMenuImages::ImageBlack);
+	}
+}
+
+void CKofStyleHelper::OnDrawRibbonProgressBar( CDC* pDC, CMFCRibbonProgressBar* pProgress, CRect rectProgress, CRect rectChunk, BOOL bInfiniteMode )
+{
+	if (KOF_CMFCVisualManagerWindows != m_Style)
+	{
+		return 	CMFCVisualManager::GetInstance()->OnDrawRibbonProgressBar(
+			pDC, pProgress, rectProgress, rectChunk, FALSE);
+	}
+	if (!CMFCVisualManager::GetInstance()->IsKindOf(RUNTIME_CLASS(CMFCVisualManagerWindows)))
+	{
+		return CMFCVisualManager::GetInstance()->OnDrawRibbonProgressBar(
+			pDC, pProgress, rectProgress, rectChunk, FALSE);
+	} 
+	CKofMFCVisualManagerWindows *pVisualManager = (CKofMFCVisualManagerWindows*)CMFCVisualManager::GetInstance();
+	if (!pVisualManager)
+	{
+		return CMFCVisualManager::GetInstance()->OnDrawRibbonProgressBar(
+			pDC, pProgress, rectProgress, rectChunk, FALSE);
+	}
+	
+	ASSERT_VALID (pDC);
+
+#define	PP_BAR				1
+#define	PP_CHUNK			3
+
+	if (pVisualManager->m_hThemeProgress != NULL)
+	{
+		(*pVisualManager->m_pfDrawThemeBackground) (pVisualManager->m_hThemeProgress, pDC->GetSafeHdc(), 
+			PP_BAR, 0, &rectProgress, 0);
+
+		if (!rectChunk.IsRectEmpty ())
+		{
+			rectChunk.DeflateRect (2, 2);
+			(*pVisualManager->m_pfDrawThemeBackground) (pVisualManager->m_hThemeProgress, pDC->GetSafeHdc(), 
+				PP_CHUNK, 0, &rectChunk, 0);
+		}
+	}
+	else
+	{
+		CMFCVisualManager::GetInstance()->OnDrawRibbonProgressBar(pDC, pProgress, 
+			rectProgress, rectChunk, bInfiniteMode);
 	}
 }

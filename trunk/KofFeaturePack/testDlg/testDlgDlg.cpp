@@ -112,6 +112,7 @@ BOOL CtestDlgDlg::OnInitDialog()
 	m_BtnMenu.m_hMenu = m_menu.GetSubMenu(0)->GetSafeHmenu();
 	m_BtnMenu.SizeToContent();
 	m_BtnMenu.m_bOSMenu = FALSE;
+	m_BtnMenu.m_bStayPressed = TRUE;
 
 	// TODO: Add extra initialization here
 	//((CMFCSpinButtonCtrl*)GetDlgItem(IDC_SPIN1))->SetBuddy(GetDlgItem(IDC_EDIT1));
@@ -211,6 +212,7 @@ void CtestDlgDlg::OnCbnSelchangeCombo2()
 		break;
 	}
 	CKofStyleHelper::GetInstance()->AutoSetStyle();
+	PostMessage(AFX_WM_CHANGEVISUALMANAGER);
 	RedrawWindow(NULL, NULL, RDW_ALLCHILDREN | RDW_INVALIDATE | RDW_UPDATENOW | RDW_FRAME | RDW_ERASE);
 }
 
