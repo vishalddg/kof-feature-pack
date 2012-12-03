@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "..\include\KofProgressCtrl.h"
+#include "..\include\KofStyleHelper.h"
 
 //////////////////////////////////////////////////////////////////////////
 // CKofProgressCtrl
@@ -64,7 +65,7 @@ void CKofProgressCtrl::OnPaint()
 
 
 	CMFCRibbonProgressBar dummy;
-	CMFCVisualManager::GetInstance()->OnDrawRibbonProgressBar (
+	CKofStyleHelper::GetInstance()->OnDrawRibbonProgressBar(
 		pDC, &dummy, rectProgress, rectChunk, FALSE);
 }
 

@@ -326,6 +326,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\KofMFCMenuButton.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\KofMFCPropertyPage.cpp"
 				>
 			</File>
@@ -441,6 +445,10 @@
 			</File>
 			<File
 				RelativePath="..\include\KofMFCMaskedEdit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\KofMFCMenuButton.h"
 				>
 			</File>
 			<File
