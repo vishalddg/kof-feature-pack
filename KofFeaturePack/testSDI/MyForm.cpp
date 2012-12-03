@@ -27,6 +27,7 @@ void CMyForm::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CMyForm, CKofFormView)
 	ON_BN_CLICKED(IDC_BUTTON2, &CMyForm::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON1, &CMyForm::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -66,4 +67,9 @@ void CMyForm::OnBnClickedButton2()
 	a.bShowSeparator = TRUE;
 	int aa = KofMessageBoxIndirect(&a);
 	TRACE(_T("%d\r"), aa);
+}
+
+void CMyForm::OnBnClickedButton1()
+{
+	((CtestSDIApp*)AfxGetApp())->OnAppAbout();
 }

@@ -70,6 +70,8 @@ BEGIN_MESSAGE_MAP(CtestDlgDlg, CKofDialogEx)
 	//}}AFX_MSG_MAP
 	ON_CBN_SELCHANGE(IDC_COMBO2, &CtestDlgDlg::OnCbnSelchangeCombo2)
 	ON_BN_CLICKED(IDC_BUTTON2, &CtestDlgDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON1, &CtestDlgDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON5, &CtestDlgDlg::OnBnClickedButton5)
 END_MESSAGE_MAP()
 
 
@@ -113,7 +115,9 @@ BOOL CtestDlgDlg::OnInitDialog()
 	m_BtnMenu.SizeToContent();
 	m_BtnMenu.m_bOSMenu = FALSE;
 	m_BtnMenu.m_bStayPressed = TRUE;
-
+	((CButton*)GetDlgItem(IDC_CHECK1))->SetCheck(1);
+	((CButton*)GetDlgItem(IDC_CHECK2))->SetCheck(2);
+	((CButton*)GetDlgItem(IDC_RADIO1))->SetCheck(1);
 	// TODO: Add extra initialization here
 	//((CMFCSpinButtonCtrl*)GetDlgItem(IDC_SPIN1))->SetBuddy(GetDlgItem(IDC_EDIT1));
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -227,4 +231,17 @@ void CtestDlgDlg::OnBnClickedButton2()
 		break;
 	}
 	AfxMessageBox(strItem, MB_OK | MB_ICONINFORMATION);
+}
+
+void CtestDlgDlg::OnBnClickedButton1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+void CtestDlgDlg::OnBnClickedButton5()
+{
+	CKofFileDialog dlg(TRUE);
+	if (dlg.DoModal() == IDOK)
+	{
+	}
 }

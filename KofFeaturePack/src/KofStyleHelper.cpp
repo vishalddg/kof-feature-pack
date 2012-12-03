@@ -393,6 +393,10 @@ BOOL CKofStyleHelper::OnDrawPushButton( CDC* pDC, CRect rect, CKofMFCButton* pBu
 			afxGlobalData.DrawParentBackground (pButton, pDC);
 			m_ctrlRibbonBtnPush.Draw (pDC, rect, index);
 
+			if (!CMFCVisualManager::GetInstance()->IsKindOf(RUNTIME_CLASS(CMFCVisualManagerOffice2007)))
+			{
+				return TRUE;
+			} 
 			CKofMFCVisualManagerOffice2007 *pVisualManager = (CKofMFCVisualManagerOffice2007 *)CMFCVisualManager::GetInstance();
 			if (!pVisualManager)
 			{
