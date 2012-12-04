@@ -57,5 +57,5 @@ protected:
 	BOOL m_bHasBorder;
 	CRect m_rectResizeBox;
 	BOOL m_bVisualManagerNCArea;
-	CArray<CWnd*, CWnd*>	m_arSubclassedCtrls;
+	CArray<CWnd*, CWnd*> m_arSubclassedCtrls;
 };

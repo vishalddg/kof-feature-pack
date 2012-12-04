@@ -240,8 +240,5 @@ void CtestDlgDlg::OnBnClickedButton1()
 
 void CtestDlgDlg::OnBnClickedButton5()
 {
-	CKofFileDialog dlg(TRUE);
-	if (dlg.DoModal() == IDOK)
-	{
-	}
+	
 }

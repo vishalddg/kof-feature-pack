@@ -380,7 +380,7 @@ void CKofDlgImpl::EnableVisualManagerStyle( BOOL bEnable, BOOL bNCArea /*= FALSE
 		return;
 	}
 
-	CWnd* pWndChild = m_Dlg.GetWindow (GW_CHILD);
+	CWnd* pWndChild =  m_Dlg.GetWindow(GW_CHILD);
 
 	while (pWndChild != NULL)
 	{
