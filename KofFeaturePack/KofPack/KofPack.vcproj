@@ -402,10 +402,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\KofFileDialog.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\KofFormView.cpp"
 				>
 			</File>
@@ -537,10 +533,6 @@
 			</File>
 			<File
 				RelativePath="..\include\KofDlgImpl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\KofFileDialog.h"
 				>
 			</File>
 			<File
