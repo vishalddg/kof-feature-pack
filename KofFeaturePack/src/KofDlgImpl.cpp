@@ -430,7 +430,7 @@ void CKofDlgImpl::EnableVisualManagerStyle( BOOL bEnable, BOOL bNCArea /*= FALSE
 			}
 			else if (strClass == TRACKBAR_CLASS)
 			{
-				//pWndSubclassedCtrl = new CBCGPSliderCtrl;
+				//pWndSubclassedCtrl = new CSliderCtrl;
 			}
 			else if (strClass == EDIT_CLASS)
 			{
@@ -442,7 +442,7 @@ void CKofDlgImpl::EnableVisualManagerStyle( BOOL bEnable, BOOL bNCArea /*= FALSE
 			}
 			else if (strClass == SCROLLBAR_CLASS)
 			{
-				//pWndSubclassedCtrl = new CBCGPScrollBar;
+				//pWndSubclassedCtrl = new CScrollBar;
 			}
 			else if (strClass == UPDOWN_CLASS)
 			{
