@@ -866,6 +866,12 @@ void CKofMFCTabCtrl::AdjustTabs()
 		m_rectCloseButton.DeflateRect(2, 2);
 		m_rectCloseButton.OffsetRect(-CMFCVisualManager::GetInstance()->GetTabHorzMargin(this), GetLocation() == CMFCBaseTabCtrl::LOCATION_TOP ? 1 : -1);
 
+		if (m_bFlat || m_bLeftRightRounded)
+		{
+			const int nOffset = m_bFlat ? -m_nTabsHeight * 2 / 3 : -m_nTabsHeight / 2;
+			m_rectCloseButton.OffsetRect(nOffset, 0);
+		}
+
 		if (m_pToolTipClose->GetSafeHwnd() != NULL)
 		{
 			m_pToolTipClose->SetToolRect(this, 1, m_rectCloseButton);

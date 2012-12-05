@@ -126,8 +126,25 @@ void CKofMFCButton::DoDrawItem( CDC* pDCPaint, CRect rectClient, UINT itemState 
 		}
 		else
 		{
-			if (CKofStyleHelper::GetInstance()->OnDrawPushButton (pDC, rectClient, this, m_clrText))
+			if (CKofStyleHelper::GetInstance()->OnDrawPushButton(pDC, rectClient, this, m_clrText))
 			{
+				if (m_clrFace != -1 && afxGlobalData.m_nBitsPerPixel > 8)
+				{
+					CDrawingManager dm(*pDC);
+
+					CRect rectHighlight = rectClient;
+					int nPercentage = 50;
+					BOOL bIsFocused = (itemState & ODS_FOCUS);
+
+					if (IsHighlighted() || IsPressed() || IsChecked() || bIsFocused)
+					{
+						rectHighlight.DeflateRect(2, 2);
+						nPercentage = 20;
+					}
+
+					dm.HighlightRect(rectHighlight, nPercentage, (COLORREF)-1, 0, m_clrFace);
+				}
+
 				rectClient.DeflateRect (2, 2);
 				bDefaultDraw = FALSE;
 			}
@@ -413,7 +430,7 @@ void CKofMFCButton::OnDraw( CDC* pDC, const CRect& rect, UINT uiState )
 		}
 		else
 		{
-			pDC->SetTextColor (m_clrText);
+			pDC->SetTextColor (m_bHighlighted && m_clrHover != clrDefault ? m_clrHover : m_clrText);
 		}
 	}
 

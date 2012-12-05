@@ -109,3 +109,14 @@ void CKofMFCColorButton::OnDrawBorder( CDC* pDC, CRect& rectClient, UINT uiState
 
 	CKofStyleHelper::GetInstance()->OnDrawEditBorder(pDC, rectClient, m_bHighlighted, m_pPopup != NULL, IsWindowEnabled());
 }
+
+void CKofMFCColorButton::SetColors( const CArray<COLORREF, COLORREF>& colors )
+{
+	if (m_Colors.GetSize() != 0)
+	{
+		m_Colors.SetSize(0);
+		m_Colors.FreeExtra();
+	}
+
+	m_Colors.Append(colors);
+}

@@ -12,6 +12,8 @@ public:
 	CKofMFCColorButton();
 	virtual ~CKofMFCColorButton();
 
+	void SetColors(const CArray<COLORREF, COLORREF>& colors);
+
 protected:
 	virtual void OnDraw(CDC* pDC, const CRect& rect, UINT uiState);
 	virtual void OnDrawBorder(CDC* pDC, CRect& rectClient, UINT uiState);

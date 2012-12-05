@@ -229,6 +229,8 @@ void CtestDlgDlg::OnBnClickedButton2()
 		break;
 	case ID_32772:strItem = _T("点击了第二项");
 		break;
+	default:
+		return;
 	}
 	AfxMessageBox(strItem, MB_OK | MB_ICONINFORMATION);
 }
