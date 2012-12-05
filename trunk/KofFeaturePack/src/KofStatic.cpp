@@ -12,6 +12,7 @@ IMPLEMENT_DYNAMIC(CKofStatic, CStatic)
 CKofStatic::CKofStatic()
 {
 	m_clrText = (COLORREF)-1;
+	m_hFont	= NULL;
 }
 
 CKofStatic::~CKofStatic()
@@ -24,6 +25,7 @@ BEGIN_MESSAGE_MAP(CKofStatic, CStatic)
 	ON_WM_PAINT()
 	ON_WM_ENABLE()
 	ON_MESSAGE(WM_SETTEXT, OnSetText)
+	ON_MESSAGE(WM_SETFONT, OnSetFont)
 END_MESSAGE_MAP()
 
 BOOL CKofStatic::OnEraseBkgnd(CDC* pDC)
@@ -89,7 +91,14 @@ void CKofStatic::OnPaint()
 
 	afxGlobalData.DrawParentBackground(this, pDC);
 
-	CFont* pOldFont = (CFont*) pDC->SelectStockObject (DEFAULT_GUI_FONT);
+	if (m_hFont != NULL && ::GetObjectType (m_hFont) != OBJ_FONT)
+	{
+		m_hFont = NULL;
+	}
+
+	CFont* pOldFont = m_hFont == NULL ?
+		(CFont*) pDC->SelectStockObject (DEFAULT_GUI_FONT) :
+	pDC->SelectObject (CFont::FromHandle (m_hFont));
 	ASSERT(pOldFont != NULL);
 
 	UINT uiDTFlags = DT_WORDBREAK;
@@ -108,6 +117,11 @@ void CKofStatic::OnPaint()
 		uiDTFlags |= DT_NOPREFIX;
 	}
 
+	if ((dwStyle & SS_CENTERIMAGE) == SS_CENTERIMAGE)
+	{
+		uiDTFlags |= DT_SINGLELINE | DT_VCENTER;
+	}
+
 	COLORREF clrText = m_clrText == (COLORREF)-1 ? (FALSE ? RGB(0, 0, 0) : afxGlobalData.clrBarText) : m_clrText;
 	if (!IsWindowEnabled ())
 	{
@@ -116,6 +130,11 @@ void CKofStatic::OnPaint()
 
 	CString strText;
 	GetWindowText(strText);
+
+	if (strText.Find(_T('\t')) >= 0)
+	{
+		uiDTFlags |= (DT_TABSTOP | 0x40);
+	}
 
 	if (!FALSE)
 	{
@@ -159,4 +178,10 @@ LRESULT CKofStatic::OnSetText( WPARAM, LPARAM lp )
 	}
 
 	return lr;
+}
+
+LRESULT CKofStatic::OnSetFont( WPARAM wParam, LPARAM lp )
+{
+	m_hFont = (HFONT) wParam;
+	return Default();
 }

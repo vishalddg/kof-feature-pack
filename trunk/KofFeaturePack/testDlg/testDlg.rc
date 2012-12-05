@@ -10,13 +10,12 @@
 #ifndef APSTUDIO_INVOKED
 #include "targetver.h"
 #endif
-#include "afxres.h"
-
+#include "afxres.h"
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 中文(中华人民共和国) resources
+// Chinese (P.R.C.) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 #ifdef _WIN32
@@ -88,12 +87,12 @@ BEGIN
     END
 END
 
-#endif    // 中文(中华人民共和国) resources
+#endif    // Chinese (P.R.C.) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 英语(美国) resources
+// English (U.S.) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -145,7 +144,8 @@ BEGIN
     COMBOBOX        IDC_COMBO3,7,157,54,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "Button3",IDC_BUTTON3,75,156,57,14
     PUSHBUTTON      "Button4",IDC_BUTTON4,134,7,55,14
-    PUSHBUTTON      "Button5",IDC_BUTTON5,200,7,50,14
+    PUSHBUTTON      "Button5",IDC_BUTTON5,200,7,50,14,WS_DISABLED
+    GROUPBOX        "Static",IDC_STATIC,155,52,147,117
 END
 
 
@@ -254,7 +254,7 @@ BEGIN
     IDS_ABOUTBOX            "&About testDlg..."
 END
 
-#endif    // 英语(美国) resources
+#endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -278,8 +278,7 @@ LANGUAGE 9, 1
 #include "afxribbon.rc"              // MFC ribbon and control bar resources
 #include "KofPackRes.rc"
 #endif
-#endif
-
+#endif
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
 

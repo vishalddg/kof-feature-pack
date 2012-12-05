@@ -100,7 +100,7 @@ CKofMessageBox::~CKofMessageBox()
 BEGIN_MESSAGE_MAP(CKofMessageBox, CKofDialogEx)
 	ON_WM_PAINT()
 	ON_MESSAGE(WM_HELP, OnHelp)
-	ON_COMMAND_RANGE(0, 0xFFFF, OnButton)
+	ON_COMMAND_RANGE(1, 0xFFFF, OnButton)
 END_MESSAGE_MAP()
 
 void CKofMessageBox::Initialize()
@@ -333,13 +333,13 @@ BOOL CKofMessageBox::OnInitDialog()
 	SetWindowText (m_strMessageCaption);
 	CenterWindow ();
 
+	::MessageBeep (m_Params.dwStyle & MB_ICONMASK);
+
 	if (m_nDefaultButtonIndex >= 0 && m_nDefaultButtonIndex < (int)m_arrButtons.GetSize ())
 	{
 		m_arrButtons[m_nDefaultButtonIndex]->SetFocus ();
 		return FALSE; // Focus changed
 	}
-
-	::MessageBeep (m_Params.dwStyle & MB_ICONMASK);
 
 	return TRUE;
 }
@@ -631,6 +631,10 @@ void CKofMessageBox::PreInitDialog()
 			WS_VISIBLE | WS_CHILD | WS_TABSTOP | BS_AUTOCHECKBOX,
 			rectCheckBox, this, 0);
 
+		if (m_Params.bIsChecked)
+		{
+			m_wndDontAskCheckBox.SetCheck(TRUE);
+		}
 
 		yButtons += yOffset;
 		szTotal.cy += yOffset;

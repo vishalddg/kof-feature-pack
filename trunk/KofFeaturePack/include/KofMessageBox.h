@@ -9,6 +9,7 @@
 struct KOFPACKDLLEXPORT KOF_MSGBOXPARAMS : public MSGBOXPARAMS
 {
 	BOOL    bShowCheckBox;
+	BOOL    bIsChecked;
 	BOOL    bShowSeparator;
 	LPCTSTR lpszCheckBoxText; 
 	UINT*   puiAutoRespond;
