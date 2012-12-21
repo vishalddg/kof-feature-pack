@@ -286,6 +286,7 @@ BOOL CAboutDlg::OnInitDialog()
 	m_TabOne.Create(CMFCTabCtrl::STYLE_3D, rectTabs, this, 1, CMFCTabCtrl::LOCATION_TOP);
 	m_TabOne.SetImageList (IDB_BITMAP1, 16, RGB (255, 0, 255));
 //	m_TabOne.SetTabMaxWidth()
+	m_TabOne.EnableActiveTabCloseButton();
 
 	m_wnd1.Create (WS_CHILD | WS_VISIBLE, CRect (0, 0, 0, 0), &m_TabOne, 1);
 	m_wnd1.SetFont (&afxGlobalData.fontRegular);

@@ -88,6 +88,7 @@ protected:
 	BOOL m_bIsDlgControl2;     // Tab is created on the dialog
 	afx_msg void OnPaint();
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	DECLARE_MESSAGE_MAP()
 };
 
