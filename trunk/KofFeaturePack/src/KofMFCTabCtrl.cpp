@@ -27,6 +27,7 @@ CKofMFCTabCtrl::~CKofMFCTabCtrl()
 BEGIN_MESSAGE_MAP(CKofMFCTabCtrl, CMFCTabCtrl)
 	ON_WM_PAINT()
 	ON_WM_CREATE()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 BOOL CKofMFCTabCtrl::PreTranslateMessage( MSG* pMsg )
@@ -903,4 +904,28 @@ int CKofMFCTabCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 
 	return 0;
+}
+
+void CKofMFCTabCtrl::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	if (m_bTabCloseButtonPressed)
+	{
+		m_bTabCloseButtonPressed = FALSE;
+		m_bTabCloseButtonHighlighted = FALSE;
+
+		RedrawWindow(m_rectCloseButton);
+
+		if (m_rectCloseButton.PtInRect(point))
+		{
+			int nTab = GetActiveTab();
+			CWnd* pWndActive = GetActiveWnd();
+			if (pWndActive != NULL)
+			{
+				pWndActive->SendMessage(WM_CLOSE);
+			}
+			RemoveTab(nTab);
+			return;
+		}
+	}
+	CMFCTabCtrl::OnLButtonUp(nFlags, point);
 }
