@@ -10,10 +10,10 @@
 #include "afxres.h"
 
 #ifndef _AFX_INTL_RESOURCES
-#include "res\RibbonStyle2007Aqua.rc2"
-#include "res\RibbonStyle2007Black.rc2"
-#include "res\RibbonStyle2007Blue.rc2"
-#include "res\RibbonStyle2007Silver.rc2"
+#include "res\KofRibbonStyle2007Aqua.rc2"
+#include "res\KofRibbonStyle2007Black.rc2"
+#include "res\KofRibbonStyle2007Blue.rc2"
+#include "res\KofRibbonStyle2007Silver.rc2"
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
